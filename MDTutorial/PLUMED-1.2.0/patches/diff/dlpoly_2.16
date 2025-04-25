@@ -1,0 +1,572 @@
+patch -c -l -b -F 3 --suffix=.preplumed "./build/MakePAR" << \EOF_EOF
+*** ./build/MakePAR.preplumed	Wed Feb 15 11:48:28 2006
+--- ./build/MakePAR	Mon Nov  2 16:27:04 2009
+***************
+*** 10,16 ****
+  #=======================================================================
+  
+  BINROOT = ../execute
+! CC  = gcc
+  EX = DLPOLY.X
+  EXE = $(BINROOT)/$(EX)
+  FC=undefined
+--- 10,16 ----
+  #=======================================================================
+  
+  BINROOT = ../execute
+! CC  = mpicc
+  EX = DLPOLY.X
+  EXE = $(BINROOT)/$(EX)
+  FC=undefined
+***************
+*** 55,66 ****
+--- 55,73 ----
+  
+  OBJ_PAR = basic_comms.o merge_tools.o pass_tools.o
+  
++ HEAD_METAD = Plumed/metadyn.h
++ 
++ include Plumed/plumed.inc
++ 
++ OBJ_METAD = $(PLUMED_OBJECTS)
++ 
+  #=====================================================================
+  # Define targets
+  all:
+  	@echo "Error - please specify a target machine!"
+  	@echo "Permissible targets for this Makefile are:"
+  	@echo "                                          "
++ 	@echo "gfortran                   (parallel)"
+  	@echo "hpcx                       (parallel)"
+  	@echo "crayxd1                    (parallel)"
+  	@echo "macosx-xlf-g5-mpi          (parallel)"
+***************
+*** 71,76 ****
+--- 78,90 ----
+  
+  # system specific targets follow :
+  
++ #================== GNU Fortran, MPI version ==============================
++ gfortran:
++ 	$(MAKE) FC="mpif90" LD="mpif90 -o" \
++ 	LDFLAGS="-O2 -ffast-math" \
++ 	FFLAGS="-c -O2 -ffast-math" \
++ 	EX=$(EX) BINROOT=$(BINROOT) $(TYPE)
++ 
+  #================== HPCx SP Power 5 =======================================
+  hpcx:
+  	$(MAKE) FC="mpxlf" LD="mpxlf -o" \
+***************
+*** 114,136 ****
+  
+  # Default code. Force tables interpolation in r-space 3pt interpolation
+  3pt: check $(OBJ_MOD) $(OBJ_ALL) $(OBJ_RRR) $(OBJ_PAR)\
+! 	$(OBJ_LF) $(OBJ_VV)
+  	$(LD) $(EX) $(OBJ_MOD) $(OBJ_ALL) $(OBJ_RRR) $(OBJ_PAR) \
+! 	$(OBJ_LF) $(OBJ_VV)
+  	mv $(EX) $(EXE)
+  
+  # Force tables interpolation in r-space, 4pt interpolation
+  4pt: check $(OBJ_MOD) $(OBJ_ALL) $(OBJ_4PT) $(OBJ_PAR)\
+! 	$(OBJ_LF) $(OBJ_VV)
+  	$(LD) $(EX) $(OBJ_MOD) $(OBJ_ALL) $(OBJ_4PT) $(OBJ_PAR) \
+! 	$(OBJ_LF) $(OBJ_VV)
+  	mv $(EX) $(EXE)
+  
+  # Force tables interpolation in  r-squared
+  rsq: check $(OBJ_MOD) $(OBJ_ALL) $(OBJ_RSQ) $(OBJ_PAR)\
+! 	$(OBJ_LF) $(OBJ_VV)
+  	$(LD) $(EX) $(OBJ_MOD) $(OBJ_ALL) $(OBJ_RSQ) $(OBJ_PAR) \
+! 	$(OBJ_LF) $(OBJ_VV)
+  	mv $(EX) $(EXE)
+  
+  #=====================================================================
+--- 128,150 ----
+  
+  # Default code. Force tables interpolation in r-space 3pt interpolation
+  3pt: check $(OBJ_MOD) $(OBJ_ALL) $(OBJ_RRR) $(OBJ_PAR)\
+! 	$(OBJ_LF) $(OBJ_VV) $(OBJ_METAD)
+  	$(LD) $(EX) $(OBJ_MOD) $(OBJ_ALL) $(OBJ_RRR) $(OBJ_PAR) \
+! 	$(OBJ_LF) $(OBJ_VV) $(OBJ_METAD)
+  	mv $(EX) $(EXE)
+  
+  # Force tables interpolation in r-space, 4pt interpolation
+  4pt: check $(OBJ_MOD) $(OBJ_ALL) $(OBJ_4PT) $(OBJ_PAR)\
+! 	$(OBJ_LF) $(OBJ_VV) $(OBJ_METAD)
+  	$(LD) $(EX) $(OBJ_MOD) $(OBJ_ALL) $(OBJ_4PT) $(OBJ_PAR) \
+! 	$(OBJ_LF) $(OBJ_VV) $(OBJ_METAD)
+  	mv $(EX) $(EXE)
+  
+  # Force tables interpolation in  r-squared
+  rsq: check $(OBJ_MOD) $(OBJ_ALL) $(OBJ_RSQ) $(OBJ_PAR)\
+! 	$(OBJ_LF) $(OBJ_VV) $(OBJ_METAD)
+  	$(LD) $(EX) $(OBJ_MOD) $(OBJ_ALL) $(OBJ_RSQ) $(OBJ_PAR) \
+!  $(OBJ_LF) $(OBJ_VV) $(OBJ_METAD)
+  	mv $(EX) $(EXE)
+  
+  #=====================================================================
+***************
+*** 145,151 ****
+  # Clean up the source directory
+  clean:
+  	rm -f $(OBJ_MOD) $(OBJ_ALL) $(OBJ_RRR) $(OBJ_PAR)\
+! 	$(OBJ_LF) $(OBJ_VV) $(OBJ_RSQ) $(OBJ_4PT) *.mod
+  
+  #=====================================================================
+  # Declare dependencies : c preprocess all .f files
+--- 159,165 ----
+  # Clean up the source directory
+  clean:
+  	rm -f $(OBJ_MOD) $(OBJ_ALL) $(OBJ_RRR) $(OBJ_PAR)\
+! 	$(OBJ_LF) $(OBJ_VV) $(OBJ_RSQ) $(OBJ_4PT) $(OBJ_METAD) *.mod
+  
+  #=====================================================================
+  # Declare dependencies : c preprocess all .f files
+***************
+*** 153,159 ****
+  	$(FC) $(FFLAGS) $*.f
+  
+  .c.o: 
+! 	$(CC) -c $*.c
+  
+  #=====================================================================
+  # Declare dependency on module files
+--- 167,173 ----
+  	$(FC) $(FFLAGS) $*.f
+  
+  .c.o: 
+! 	$(CC) -DMPI -DDL_POLY -c $(CFLAGS) $< -o $@
+  
+  #=====================================================================
+  # Declare dependency on module files
+***************
+*** 164,166 ****
+--- 178,186 ----
+  $(OBJ_RRR): $(OBJ_MOD)
+  $(OBJ_RSQ): $(OBJ_MOD)
+  $(OBJ_4PT): $(OBJ_MOD)
++ 
++ #=====================================================================
++ # Declare dependency for C header files
++ 
++ $(OBJ_METAD): $(HEAD_METAD)
++ 
+EOF_EOF
+patch -c -l -b -F 3 --suffix=.preplumed "./build/MakeSEQ" << \EOF_EOF
+*** ./build/MakeSEQ.preplumed	Wed Feb 15 11:48:28 2006
+--- ./build/MakeSEQ	Mon Nov  2 16:27:04 2009
+***************
+*** 55,60 ****
+--- 55,66 ----
+  
+  OBJ_PAR = serial.o
+  
++ HEAD_METAD = Plumed/metadyn.h
++ 
++ include Plumed/plumed.inc
++ 
++ OBJ_METAD = $(PLUMED_OBJECTS)
++ 
+  #=====================================================================
+  # Define targets
+  all:
+***************
+*** 90,95 ****
+--- 96,107 ----
+  	FFLAGS="-c -dp -O3,aggress,unroll2,nojump" \
+  	EX=$(EX) BINROOT=$(BINROOT) $(TYPE)
+  
++ #========== GNU Fortran =================================================
++ gfortran:
++ 	$(MAKE) LD="gfortran -o" LDFLAGS="" FC=gfortran \
++ 	FFLAGS="-c -O2 -ffast-math" \
++ 	EX=$(EX) BINROOT=$(BINROOT) $(TYPE)
++ 
+  #============= MacOSX (Darwin) version: derived from AIX ===============
+  macosx: 
+  	$(MAKE) FC=xlf FFLAGS="-c -O3 -qstrict -qipa -qarch=g5 -qnosave" \
+***************
+*** 205,227 ****
+  
+  # Default code. Force tables interpolation in r-space 3pt interpolation
+  3pt: check $(OBJ_MOD) $(OBJ_ALL) $(OBJ_RRR) $(OBJ_PAR) \
+! 	$(OBJ_LF) $(OBJ_VV)
+  	$(LD) $(EX) $(OBJ_MOD) $(OBJ_ALL) $(OBJ_RRR) $(OBJ_PAR) \
+! 	$(OBJ_LF) $(OBJ_VV)
+  	mv $(EX) $(EXE)
+  
+  # Force tables interpolation in r-space, 4pt interpolation
+  4pt: check $(OBJ_MOD) $(OBJ_ALL) $(OBJ_4PT) $(OBJ_PAR) \
+! 	$(OBJ_LF) $(OBJ_VV)
+  	$(LD) $(EX) $(OBJ_MOD) $(OBJ_ALL) $(OBJ_4PT) $(OBJ_PAR) \
+! 	$(OBJ_LF) $(OBJ_VV)
+  	mv $(EX) $(EXE)
+  
+  # Force tables interpolation in  r-squared
+  rsq: check $(OBJ_MOD) $(OBJ_ALL) $(OBJ_RSQ) $(OBJ_PAR) \
+! 	$(OBJ_LF) $(OBJ_VV)
+  	$(LD) $(EX) $(OBJ_MOD) $(OBJ_ALL) $(OBJ_RSQ) $(OBJ_PAR) \
+! 	$(OBJ_LF) $(OBJ_VV)
+  	mv $(EX) $(EXE)
+  
+  #=====================================================================
+--- 217,239 ----
+  
+  # Default code. Force tables interpolation in r-space 3pt interpolation
+  3pt: check $(OBJ_MOD) $(OBJ_ALL) $(OBJ_RRR) $(OBJ_PAR) \
+! 	$(OBJ_LF) $(OBJ_VV) $(OBJ_METAD)
+  	$(LD) $(EX) $(OBJ_MOD) $(OBJ_ALL) $(OBJ_RRR) $(OBJ_PAR) \
+! 	$(OBJ_LF) $(OBJ_VV) $(OBJ_METAD)
+  	mv $(EX) $(EXE)
+  
+  # Force tables interpolation in r-space, 4pt interpolation
+  4pt: check $(OBJ_MOD) $(OBJ_ALL) $(OBJ_4PT) $(OBJ_PAR) \
+! 	$(OBJ_LF) $(OBJ_VV) $(OBJ_METAD)
+  	$(LD) $(EX) $(OBJ_MOD) $(OBJ_ALL) $(OBJ_4PT) $(OBJ_PAR) \
+! 	$(OBJ_LF) $(OBJ_VV) $(OBJ_METAD)
+  	mv $(EX) $(EXE)
+  
+  # Force tables interpolation in  r-squared
+  rsq: check $(OBJ_MOD) $(OBJ_ALL) $(OBJ_RSQ) $(OBJ_PAR) \
+! 	$(OBJ_LF) $(OBJ_VV) $(OBJ_METAD)
+  	$(LD) $(EX) $(OBJ_MOD) $(OBJ_ALL) $(OBJ_RSQ) $(OBJ_PAR) \
+! 	$(OBJ_LF) $(OBJ_VV) $(OBJ_METAD)
+  	mv $(EX) $(EXE)
+  
+  #=====================================================================
+***************
+*** 236,242 ****
+  # Clean up the source directory
+  clean:
+  	rm -f $(OBJ_MOD) $(OBJ_ALL) $(OBJ_RRR) $(OBJ_PAR) \
+! 	$(OBJ_LF) $(OBJ_VV) $(OBJ_RSQ) $(OBJ_4PT) *.mod
+  
+  #=====================================================================
+  # Declare dependencies : c preprocess all .f files
+--- 248,254 ----
+  # Clean up the source directory
+  clean:
+  	rm -f $(OBJ_MOD) $(OBJ_ALL) $(OBJ_RRR) $(OBJ_PAR) \
+! 	$(OBJ_LF) $(OBJ_VV) $(OBJ_RSQ) $(OBJ_4PT) $(OBJ_METAD) *.mod
+  
+  #=====================================================================
+  # Declare dependencies : c preprocess all .f files
+***************
+*** 244,250 ****
+  	$(FC) $(FFLAGS) $*.f
+  
+  .c.o: 
+! 	$(CC) -c $*.c
+  
+  #=====================================================================
+  # Declare dependency on module files
+--- 256,262 ----
+  	$(FC) $(FFLAGS) $*.f
+  
+  .c.o: 
+! 	$(CC) -DDL_POLY -c $(CFLAGS) $< -o $@
+  
+  #=====================================================================
+  # Declare dependency on module files
+***************
+*** 255,257 ****
+--- 267,275 ----
+  $(OBJ_RRR): $(OBJ_MOD)
+  $(OBJ_RSQ): $(OBJ_MOD)
+  $(OBJ_4PT): $(OBJ_MOD)
++ 
++ #=====================================================================
++ # Declare dependency for C header files
++ 
++ $(OBJ_METAD): $(HEAD_METAD)
++ 
+EOF_EOF
+patch -c -l -b -F 3 --suffix=.preplumed "./build/MakeWIN" << \EOF_EOF
+*** ./build/MakeWIN.preplumed	Wed Feb 15 11:48:28 2006
+--- ./build/MakeWIN	Mon Nov  2 16:27:04 2009
+***************
+*** 55,60 ****
+--- 55,66 ----
+  
+  OBJ_PAR = serial.o
+  
++ HEAD_METAD = Plumed/metadyn.h
++ 
++ include Plumed/plumed.inc
++ 
++ OBJ_METAD = $(PLUMED_OBJECTS)
++ 
+  #=====================================================================
+  # Define targets
+  all:
+***************
+*** 77,99 ****
+  
+  # Default code. Force tables interpolation in r-space 3pt interpolation
+  3pt: check $(OBJ_MOD) $(OBJ_ALL) $(OBJ_RRR) $(OBJ_PAR)\
+! 	$(OBJ_LF) $(OBJ_VV)
+  	$(LD) /exe:$(EX) $(OBJ_MOD) $(OBJ_ALL) $(OBJ_RRR) \
+! 	$(OBJ_LF) $(OBJ_VV) $(OBJ_PAR)
+  	mv $(EX) $(EXE)
+  
+  # Force tables interpolation in r-space, 4pt interpolation
+  4pt: check $(OBJ_MOD) $(OBJ_ALL) $(OBJ_4PT) $(OBJ_PAR)\
+! 	$(OBJ_LF) $(OBJ_VV)
+  	$(LD) /exe:$(EX) $(OBJ_MOD) $(OBJ_ALL) $(OBJ_4PT) \
+! 	$(OBJ_LF) $(OBJ_VV) $(OBJ_PAR)
+  	mv $(EX) $(EXE)
+  
+  # Force tables interpolation in  r-squared
+  rsq: check $(OBJ_MOD) $(OBJ_ALL) $(OBJ_RSQ) $(OBJ_PAR)\
+! 	$(OBJ_LF) $(OBJ_VV)
+  	$(LD) /exe:$(EX) $(OBJ_MOD) $(OBJ_ALL) $(OBJ_RSQ) \
+! 	$(OBJ_LF) $(OBJ_VV) $(OBJ_PAR)\
+  	mv $(EX) $(EXE)
+  
+  #=====================================================================
+--- 83,105 ----
+  
+  # Default code. Force tables interpolation in r-space 3pt interpolation
+  3pt: check $(OBJ_MOD) $(OBJ_ALL) $(OBJ_RRR) $(OBJ_PAR)\
+! 	$(OBJ_LF) $(OBJ_VV) $(OBJ_METAD)
+  	$(LD) /exe:$(EX) $(OBJ_MOD) $(OBJ_ALL) $(OBJ_RRR) \
+! 	$(OBJ_LF) $(OBJ_VV) $(OBJ_PAR) $(OBJ_METAD)
+  	mv $(EX) $(EXE)
+  
+  # Force tables interpolation in r-space, 4pt interpolation
+  4pt: check $(OBJ_MOD) $(OBJ_ALL) $(OBJ_4PT) $(OBJ_PAR)\
+! 	$(OBJ_LF) $(OBJ_VV) $(OBJ_METAD)
+  	$(LD) /exe:$(EX) $(OBJ_MOD) $(OBJ_ALL) $(OBJ_4PT) \
+! 	$(OBJ_LF) $(OBJ_VV) $(OBJ_PAR) $(OBJ_METAD)
+  	mv $(EX) $(EXE)
+  
+  # Force tables interpolation in  r-squared
+  rsq: check $(OBJ_MOD) $(OBJ_ALL) $(OBJ_RSQ) $(OBJ_PAR)\
+! 	$(OBJ_LF) $(OBJ_VV) $(OBJ_METAD)
+  	$(LD) /exe:$(EX) $(OBJ_MOD) $(OBJ_ALL) $(OBJ_RSQ) \
+! 	$(OBJ_LF) $(OBJ_VV) $(OBJ_PAR) $(OBJ_METAD)
+  	mv $(EX) $(EXE)
+  
+  #=====================================================================
+***************
+*** 108,114 ****
+  # Clean up the source directory
+  clean:
+  	rm -f $(OBJ_MOD) $(OBJ_ALL) $(OBJ_RRR) $(OBJ_PAR)\
+! 	$(OBJ_LF) $(OBJ_VV) $(OBJ_RSQ) $(OBJ_4PT) *.mod
+  
+  #=====================================================================
+  # Declare dependencies : c preprocess all .f files
+--- 114,120 ----
+  # Clean up the source directory
+  clean:
+  	rm -f $(OBJ_MOD) $(OBJ_ALL) $(OBJ_RRR) $(OBJ_PAR)\
+! 	$(OBJ_LF) $(OBJ_VV) $(OBJ_RSQ) $(OBJ_4PT) $(OBJ_METAD) *.mod
+  
+  #=====================================================================
+  # Declare dependencies : c preprocess all .f files
+***************
+*** 116,122 ****
+  	$(FC) $(FFLAGS) $*.f
+  	mv $*.obj $*.o
+  .c.o: 
+! 	$(CC) -c $*.c
+  
+  #=====================================================================
+  # Declare dependency on module files
+--- 122,128 ----
+  	$(FC) $(FFLAGS) $*.f
+  	mv $*.obj $*.o
+  .c.o: 
+! 	$(CC) -DDL_POLY -c $(CFLAGS) $< -o $@
+  
+  #=====================================================================
+  # Declare dependency on module files
+***************
+*** 128,130 ****
+--- 134,140 ----
+  $(OBJ_RSQ): $(OBJ_MOD)
+  $(OBJ_4PT): $(OBJ_MOD)
+  
++ #=====================================================================
++ # Declare dependency for C header files
++ 
++ $(OBJ_METAD): $(HEAD_METAD)
+EOF_EOF
+patch -c -l -b -F 3 --suffix=.preplumed "./srcf90/define_system.f" << \EOF_EOF
+*** ./srcf90/define_system.f.preplumed	Fri Feb 10 14:41:33 2006
+--- ./srcf90/define_system.f	Mon Nov  2 16:27:04 2009
+***************
+*** 4,10 ****
+       x  keytrj,kmax1,kmax2,kmax3,multt,nstack,nstbgr,nstbpo,nhko,
+       x  nlatt,nstbts,nsteql,nstraj,nstrun,nospl,fplan,bplan,alpha,
+       x  delr,epsq,fmax,press,quattol,rcut,rprim,rvdw,taup,taut,temp,
+!      x  timcls,timjob,tolnce,tstep)
+        
+  c***********************************************************************
+  c     
+--- 4,10 ----
+       x  keytrj,kmax1,kmax2,kmax3,multt,nstack,nstbgr,nstbpo,nhko,
+       x  nlatt,nstbts,nsteql,nstraj,nstrun,nospl,fplan,bplan,alpha,
+       x  delr,epsq,fmax,press,quattol,rcut,rprim,rvdw,taup,taut,temp,
+!      x  timcls,timjob,tolnce,tstep,lplumed,plumedfile,parse_file)
+        
+  c***********************************************************************
+  c     
+***************
+*** 70,75 ****
+--- 70,83 ----
+        logical lstep,ltemp,lcut,ldelr,lprim,lforc,lens,lvdw,lrvdw,kill
+        logical lnsq,lzden,lewald,lspme,lhke,loop,findstring
+  
++ c PluMeD variables
++       logical lplumed
++       character(len=20) :: plumedfile
++       character(len=80) :: parse_file
++       integer :: i
++       plumedfile="plumed.dat"
++ c end  PluMeD variables
++ 
+        data blank/'                    '/
+  CVAM
+  CVAM      call VTBEGIN(3, ierr)
+***************
+*** 141,146 ****
+--- 149,159 ----
+        lnsq=.false.
+        lzden=.false.
+  
++ c PluMeD defaults
++       lplumed   = .false.
++       plumedfile="plumed.dat"
++ c PluMeD defaults
++ 
+  c     open the simulation input file
+        
+        if(idnode.eq.0) open(nread,file='CONTROL',status='old')
+***************
+*** 174,179 ****
+--- 187,206 ----
+          
+          if(record(1).eq.'#'.or.record(1).eq.' ') then
+  
++ c PluMeD modifications
++ 
++         elseif(findstring('plumed ',directive,idum)) then
++              if(findstring('on',directive,idum) ) lplumed=.true.
++              if(findstring('off',directive,idum)) lplumed=.false.
++ 
++         elseif(findstring('plumedfile',directive,idum)) then
++              do i=1,80
++                parse_file(i:i)=record(i)
++              enddo
++              read(parse_file,*)plumedfile,plumedfile
++ 
++ c end PluMeD modifications
++ 
+  c     record is commented out
+            
+          elseif(findstring('steps',directive,idum))then
+EOF_EOF
+patch -c -l -b -F 3 --suffix=.preplumed "./srcf90/dlpoly.f" << \EOF_EOF
+*** ./srcf90/dlpoly.f.preplumed	Wed Feb 15 16:39:40 2006
+--- ./srcf90/dlpoly.f	Tue Nov  3 09:12:16 2009
+***************
+*** 94,99 ****
+--- 94,105 ----
+        real*8, allocatable :: tbuffer(:)
+        
+  CFFTW      pointer fplan, bplan 
++ 
++ c PluMeD variables
++       logical lplumed
++       character(len=20) :: plumedfile
++       character(len=80) :: parse_file
++ c end PluMeD variables
+        
+        integer fplan, bplan
+        
+***************
+*** 170,176 ****
+       x  keytrj,kmax1,kmax2,kmax3,multt,nstack,nstbgr,nstbpo,nhko,
+       x  nlatt,nstbts,nsteql,nstraj,nstrun,nospl,fplan,bplan,alpha,
+       x  delr,epsq,fmax,press,quattol,rcut,rprim,rvdw,taup,taut,temp,
+!      x  timcls,timjob,tolnce,tstep)
+        
+  c     input the system force field
+        
+--- 176,182 ----
+       x  keytrj,kmax1,kmax2,kmax3,multt,nstack,nstbgr,nstbpo,nhko,
+       x  nlatt,nstbts,nsteql,nstraj,nstrun,nospl,fplan,bplan,alpha,
+       x  delr,epsq,fmax,press,quattol,rcut,rprim,rvdw,taup,taut,temp,
+!      x  timcls,timjob,tolnce,tstep,lplumed,plumedfile,parse_file)
+        
+  c     input the system force field
+        
+***************
+*** 209,214 ****
+--- 215,233 ----
+       x  nstep,numacc,numrdf,ntpatm,ntpmet,nzden,chip,chit,
+       x  conint,elrc,engunit,virlrc,rvdw,volm,virtot,vircom)
+        
++ c PluMeD modifications
++       if(lplumed)then
++         call init_metadyn
++      x (natms, tstep, weight, chge, imcon, engunit,
++      x  trim(plumedfile)//char(0))
++         if(idnode==0)then
++          write(nrite,'(/a22)' )"-- PLUMED ENABLED --  "
++          write(nrite,'(a22,a)')"   PLUMED INPUT FILE: ",trim(plumedfile)
++         endif
++         call flush(nrite)
++       endif
++ c end PluMeD modifications
++ 
+  c     kinetic stress tensor at start
+        
+        if(keyver.gt.0.and.nstep.eq.0)then
+***************
+*** 554,560 ****
+            
+            if(keyfld.gt.0) call extnfld
+       x      (idnode,imcon,keyfld,mxnode,natms,engfld,virfld)
+!           
+  c     global summation of force arrays (basic replicated data strategy)
+            
+            call global_sum_forces(natms,idnode,mxnode)
+--- 573,579 ----
+            
+            if(keyfld.gt.0) call extnfld
+       x      (idnode,imcon,keyfld,mxnode,natms,engfld,virfld)
+! 
+  c     global summation of force arrays (basic replicated data strategy)
+            
+            call global_sum_forces(natms,idnode,mxnode)
+***************
+*** 568,574 ****
+            stress(1)=stress(1)-(virlrc+vlrcm(0))/3.d0
+            stress(5)=stress(5)-(virlrc+vlrcm(0))/3.d0
+            stress(9)=stress(9)-(virlrc+vlrcm(0))/3.d0
+!           
+  c     cap forces in equilibration mode
+            
+            if(nstep.le.nsteql.and.lfcap) 
+--- 587,603 ----
+            stress(1)=stress(1)-(virlrc+vlrcm(0))/3.d0
+            stress(5)=stress(5)-(virlrc+vlrcm(0))/3.d0
+            stress(9)=stress(9)-(virlrc+vlrcm(0))/3.d0
+!          
+! c PluMeD modifications
+!           if(lplumed)then  
+!              call
+!      c       meta_force_calculation(cell,nstep,xxx,yyy,zzz,fxx,fyy,fzz,
+!      c  engsrp+engcpe+engbnd+engang+engdih+engfld+engtbp+
+!      c  engfbp+engshl+enginv+engter+engmet)
+!           endif  
+! c end PluMeD modifications
+! 
+!  
+  c     cap forces in equilibration mode
+            
+            if(nstep.le.nsteql.and.lfcap) 
+EOF_EOF

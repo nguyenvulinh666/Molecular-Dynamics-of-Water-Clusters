@@ -1,0 +1,363 @@
+patch -c -l -b -F 3 --suffix=.preplumed "./src/kernel/repl_ex.h" << \EOF_EOF
+*** ./src/kernel/repl_ex.h.preplumed	2009-12-22 16:26:45.000000000 +0100
+--- ./src/kernel/repl_ex.h	2009-12-16 13:08:11.000000000 +0100
+***************
+*** 69,72 ****
+--- 69,76 ----
+  
+  extern void print_replica_exchange_statistics(FILE *fplog,gmx_repl_ex_t *re);
+  
++ extern int replica_exchange_get_repl(const gmx_repl_ex_t* re);
++ extern int replica_exchange_get_nrepl(const gmx_repl_ex_t* re);
++ extern real replica_exchange_get_temp(const gmx_repl_ex_t* re,int i);
++ 
+  #endif	/* _repl_ex_h */
+EOF_EOF
+patch -c -l -b -F 3 --suffix=.preplumed "./src/kernel/md.c" << \EOF_EOF
+*** ./src/kernel/md.c.preplumed	2008-02-29 08:02:45.000000000 +0100
+--- ./src/kernel/md.c	2009-12-11 11:01:52.000000000 +0100
+***************
+*** 77,82 ****
+--- 77,84 ----
+  #include "mpelogging.h"
+  #endif
+  
++ // include PLUMED interface
++ #include "metadyn.h"
+  
+  volatile bool bGotTermSignal = FALSE, bGotUsr1Signal = FALSE;
+  
+***************
+*** 445,450 ****
+--- 447,459 ----
+      }
+      copy_mat(state->box,boxcopy);
+    }  
++ 
++   /* Initialize stuff for metadynamics and replica-methods */
++   if(logical.meta_inp) {
++     /* Initialize metadynamics */
++     init_metadyn(mdatoms->nr, 0,  mdatoms->chargeA, mdatoms->massT,
++                  inputrec->delta_t, (repl_ex_nst>0?repl_ex_nst:-1),repl_ex,mcr,log);
++   }
+    
+    /* Write start time and temperature */
+    start_t=print_date_and_time(log,cr->nodeid,"Started mdrun");
+***************
+*** 635,645 ****
+--- 644,659 ----
+         * This is parallellized as well, and does communication too. 
+         * Check comments in sim_util.c
+         */
++       // this is necessary since plumed forces are calculated in do_force which
++       // does not have access to step
++       if(logical.meta_inp) plumed_setstep(step);
+  		
+        do_force(log,cr,mcr,inputrec,nsb,step,&mynrnb,top,grps,
+  	       state->box,state->x,f,buf,mdatoms,ener,fcd,bVerbose && !PAR(cr),
+  	       state->lambda,graph,
+  	       TRUE,bNS,FALSE,TRUE,fr,mu_tot,FALSE,t,fp_field,edyn);
++ 
++       if(logical.meta_inp) meta_force_calculation(START(nsb),HOMENR(nsb),state->x,f,state->box,0.0);
+      }
+     
+  	
+EOF_EOF
+patch -c -l -b -F 3 --suffix=.preplumed "./src/kernel/repl_ex.c" << \EOF_EOF
+*** ./src/kernel/repl_ex.c.preplumed	2008-02-29 08:02:50.000000000 +0100
+--- ./src/kernel/repl_ex.c	2009-12-16 13:07:47.000000000 +0100
+***************
+*** 48,53 ****
+--- 48,56 ----
+  #include "vec.h"
+  #include "names.h"
+  
++ // to include metadynamics variables
++ #include "metadyn.h"
++ 
+  gmx_repl_ex_t *init_replica_exchange(FILE *fplog,
+  				     const t_commrec *mcr,
+  				     const t_state *state,
+***************
+*** 117,122 ****
+--- 120,128 ----
+    /* Make an index for increasing temperature order */
+    for(i=0; i<re->nrepl; i++)
+      re->ind[i] = i;
++ /*
++ This code is commented out to permit replicas with same temperature
++ It's usefull for Replica Metadynamics (Laio's way)
+    for(i=0; i<re->nrepl; i++) {
+      for(j=i+1; j<re->nrepl; j++) {
+        if (re->temp[re->ind[j]] < re->temp[re->ind[i]]) {
+***************
+*** 128,133 ****
+--- 134,140 ----
+        }
+      }
+    }
++ */
+    fprintf(fplog,"Repl   ");
+    for(i=0; i<re->nrepl; i++)
+      fprintf(fplog," %3d  ",re->ind[i]);
+***************
+*** 282,287 ****
+--- 289,298 ----
+    real *Epot,*prob,ediff,delta,dpV,*Vol,betaA,betaB;
+    bool *bEx,bExchanged,bPrint;
+  
++   real delta1, delta2, delta_meta;
++   int target_replica;
++   real *Vbias=NULL,*Vbiasx=NULL;
++ 
+    fprintf(fplog,"Replica exchange at step %d time %g\n",step,time);
+    snew(Epot,re->nrepl);
+    snew(Vol,re->nrepl);
+***************
+*** 295,312 ****
+  
+    bExchanged = FALSE;
+    m = (step / re->nst) % 2;
+    for(i=1; i<re->nrepl; i++) {
+      a = re->ind[i-1];
+      b = re->ind[i];
+      bPrint = (re->repl==a || re->repl==b);
+      if (i % 2 == m) {
+        /* Use equations from:
+         * Okabe et. al. Chem. Phys. Lett. 335 (2001) 435-439
+         */
+        ediff = Epot[b] - Epot[a];
+-       betaA = 1.0/(re->temp[a]*BOLTZ);
+-       betaB = 1.0/(re->temp[b]*BOLTZ);
+        delta = (betaA-betaB)*ediff;
+        if (bPrint)
+  	fprintf(fplog,"Repl %d <-> %d  dE = %10.3e",a,b,delta);
+        if (re->bNPT) {
+--- 306,349 ----
+  
+    bExchanged = FALSE;
+    m = (step / re->nst) % 2;
++ 
++   if(logical.rpxm) bias_exchange_traj(re->nrepl, &(re->seed), re->ind);
++ 
++   snew(Vbias,re->nrepl);
++   snew(Vbiasx,re->nrepl);
++ 
++   if(logical.remd) {
++     for(i=0; i<re->nrepl; i++) Vbias[i]=0.;
++     for(i=0; i<re->nrepl; i++) Vbiasx[i]=0.;
++     target_replica=-1; // means NO exchange;
++     for(i=1; i<re->nrepl; i++) {
++       a = re->ind[i-1];
++       b = re->ind[i];
++       if (i % 2 == m) {
++         if(re->repl==a) target_replica=b;
++         if(re->repl==b) target_replica=a;
++       }
++     };
++     ptmetad_vbias(target_replica,Vbias,Vbiasx);
++   }
++ 
+    for(i=1; i<re->nrepl; i++) {
+      a = re->ind[i-1];
+      b = re->ind[i];
+      bPrint = (re->repl==a || re->repl==b);
+      if (i % 2 == m) {
++ /* metadynamics contribution */
++       delta1 = Vbias[a]-Vbiasx[a];
++       delta2 = Vbias[b]-Vbiasx[b];
++       betaA = 1.0/(re->temp[a]*BOLTZ);
++       betaB = 1.0/(re->temp[b]*BOLTZ);
++       delta_meta = betaA * delta1 + betaB * delta2;
+        /* Use equations from:
+         * Okabe et. al. Chem. Phys. Lett. 335 (2001) 435-439
+         */
+        ediff = Epot[b] - Epot[a];
+        delta = (betaA-betaB)*ediff;
++ 
+        if (bPrint)
+  	fprintf(fplog,"Repl %d <-> %d  dE = %10.3e",a,b,delta);
+        if (re->bNPT) {
+***************
+*** 348,353 ****
+--- 385,393 ----
+    print_prob(fplog,"pr",re->nrepl,prob);
+    fprintf(fplog,"\n");
+  
++   sfree(Vbias);
++   sfree(Vbiasx);
++ 
+    sfree(bEx);
+    sfree(prob);
+    sfree(Epot);
+***************
+*** 397,399 ****
+--- 437,450 ----
+    
+    fprintf(fplog,"\n");
+  }
++ 
++ int replica_exchange_get_repl(const gmx_repl_ex_t* re){
++   return re->repl;
++ };
++ int replica_exchange_get_nrepl(const gmx_repl_ex_t* re){
++   return re->nrepl;
++ };
++ real replica_exchange_get_temp(const gmx_repl_ex_t* re,int i){
++   return re->temp[i];
++ };
++ 
+EOF_EOF
+patch -c -l -b -F 3 --suffix=.preplumed "./src/kernel/mdrun.c" << \EOF_EOF
+*** ./src/kernel/mdrun.c.preplumed	2008-02-29 08:02:45.000000000 +0100
+--- ./src/kernel/mdrun.c	2009-12-11 11:01:52.000000000 +0100
+***************
+*** 50,55 ****
+--- 50,57 ----
+  /* afm stuf */
+  #include "pull.h"
+  
++ #include "metadyn.h"
++ 
+  int main(int argc,char *argv[])
+  {
+    static char *desc[] = {
+***************
+*** 160,166 ****
+      { efPDO, "-pd",     "pull",     ffOPTWR },
+      { efNDX, "-pn",     "pull",     ffOPTRD },
+      { efMTX, "-mtx",    "nm",       ffOPTWR },
+!     { efNDX, "-dn",     "dipole",   ffOPTWR }
+    };
+  #define NFILE asize(fnm)
+  
+--- 162,169 ----
+      { efPDO, "-pd",     "pull",     ffOPTWR },
+      { efNDX, "-pn",     "pull",     ffOPTRD },
+      { efMTX, "-mtx",    "nm",       ffOPTWR },
+!     { efNDX, "-dn",     "dipole",   ffOPTWR },
+!     { efDAT, "-plumed", "plumed",   ffOPTRD }
+    };
+  #define NFILE asize(fnm)
+  
+***************
+*** 252,257 ****
+--- 255,268 ----
+    Flags = Flags | (bMultiSim ? MD_MULTISIM : 0);
+    Flags = Flags | (bGlas     ? MD_GLAS     : 0);
+  
++   if (opt2bSet("-plumed",NFILE,fnm)) {
++     logical.meta_inp=1;
++     char *metaFilename=ftp2fn(efDAT, NFILE, fnm);
++     strcpy(mtd_data.metaFilename,metaFilename);
++   } else {
++     logical.meta_inp=0;
++   }
++ 
+    mdrunner(cr,mcr,NFILE,fnm,bVerbose,bCompact,nDLB,nstepout,
+  	   edyn,repl_ex_nst,repl_ex_seed,Flags);
+    
+EOF_EOF
+patch -c -l -b -F 3 --suffix=.preplumed "./src/kernel/Makefile" << \EOF_EOF
+*** ./src/kernel/Makefile.preplumed	2009-12-11 11:01:46.000000000 +0100
+--- ./src/kernel/Makefile	2009-12-11 11:01:52.000000000 +0100
+***************
+*** 52,61 ****
+  am__installdirs = "$(DESTDIR)$(bindir)"
+  binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
+  PROGRAMS = $(bin_PROGRAMS)
+! am_ffscan_OBJECTS = ffscan.$(OBJEXT) glaasje.$(OBJEXT) gctio.$(OBJEXT) \
+  	init_sh.$(OBJEXT) ionize.$(OBJEXT) md.$(OBJEXT) \
+  	genalg.$(OBJEXT) do_gct.$(OBJEXT) relax_sh.$(OBJEXT) \
+! 	repl_ex.$(OBJEXT) xutils.$(OBJEXT) compute_io.$(OBJEXT)
+  ffscan_OBJECTS = $(am_ffscan_OBJECTS)
+  ffscan_LDADD = $(LDADD)
+  ffscan_DEPENDENCIES = ../mdlib/libmd_mpi_d.la \
+--- 52,63 ----
+  am__installdirs = "$(DESTDIR)$(bindir)"
+  binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
+  PROGRAMS = $(bin_PROGRAMS)
+! am_ffscan_OBJECTS = \
+! 	$(PLUMED_OBJECTS) \
+! 	ffscan.$(OBJEXT) glaasje.$(OBJEXT) gctio.$(OBJEXT) \
+  	init_sh.$(OBJEXT) ionize.$(OBJEXT) md.$(OBJEXT) \
+  	genalg.$(OBJEXT) do_gct.$(OBJEXT) relax_sh.$(OBJEXT) \
+! 	repl_ex.$(OBJEXT) xutils.$(OBJEXT) compute_io.$(OBJEXT) 
+  ffscan_OBJECTS = $(am_ffscan_OBJECTS)
+  ffscan_LDADD = $(LDADD)
+  ffscan_DEPENDENCIES = ../mdlib/libmd_mpi_d.la \
+***************
+*** 85,91 ****
+  luck_LDADD = $(LDADD)
+  luck_DEPENDENCIES = ../mdlib/libmd_mpi_d.la \
+  	../gmxlib/libgmx_mpi_d.la
+! am_mdrun_OBJECTS = glaasje.$(OBJEXT) gctio.$(OBJEXT) init_sh.$(OBJEXT) \
+  	ionize.$(OBJEXT) do_gct.$(OBJEXT) relax_sh.$(OBJEXT) \
+  	repl_ex.$(OBJEXT) xutils.$(OBJEXT) compute_io.$(OBJEXT) \
+  	md.$(OBJEXT) mdrun.$(OBJEXT) genalg.$(OBJEXT)
+--- 87,95 ----
+  luck_LDADD = $(LDADD)
+  luck_DEPENDENCIES = ../mdlib/libmd_mpi_d.la \
+  	../gmxlib/libgmx_mpi_d.la
+! am_mdrun_OBJECTS = \
+! 	$(PLUMED_OBJECTS) \
+! 	glaasje.$(OBJEXT) gctio.$(OBJEXT) init_sh.$(OBJEXT) \
+  	ionize.$(OBJEXT) do_gct.$(OBJEXT) relax_sh.$(OBJEXT) \
+  	repl_ex.$(OBJEXT) xutils.$(OBJEXT) compute_io.$(OBJEXT) \
+  	md.$(OBJEXT) mdrun.$(OBJEXT) genalg.$(OBJEXT)
+***************
+*** 131,140 ****
+  depcomp = $(SHELL) $(top_srcdir)/config/depcomp
+  am__depfiles_maybe = depfiles
+  COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
+! 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+  LTCOMPILE = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
+  	--mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
+! 	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+  CCLD = $(CC)
+  LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
+  	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
+--- 135,144 ----
+  depcomp = $(SHELL) $(top_srcdir)/config/depcomp
+  am__depfiles_maybe = depfiles
+  COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
+! 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -DGROMACS3
+  LTCOMPILE = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
+  	--mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
+! 	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -DGROMACS3
+  CCLD = $(CC)
+  LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
+  	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
+***************
+*** 278,283 ****
+--- 282,290 ----
+  top_srcdir = ../..
+  AM_CPPFLAGS = -I$(top_srcdir)/include -DGMXLIBDIR=\"$(datadir)/top\"
+  LDADD = ../mdlib/libmd_mpi_d.la ../gmxlib/libgmx_mpi_d.la 
++ 
++ include ./plumed.inc
++ 
+  grompp_SOURCES = \
+  	topio.c 	toppush.c 	topcat.c 	topshake.c 	\
+  	convparm.c 	tomorse.c	sorting.c 	splitter.c	\
+***************
+*** 335,340 ****
+--- 342,348 ----
+  	x2top.h
+  
+  mdrun_SOURCES = \
++ 	$(PLUMED_SRC) \
+  	glaasje.c 	glaasje.h 	gctio.c 	init_sh.c 	\
+  	ionize.c 	ionize.h 	xmdrun.h	\
+  	do_gct.c 	relax_sh.c	repl_ex.c	repl_ex.h	\
+***************
+*** 447,452 ****
+--- 455,461 ----
+  distclean-compile:
+  	-rm -f *.tab.c
+  
++ include ./plumed.Po.inc
+  include ./$(DEPDIR)/add_par.Po
+  include ./$(DEPDIR)/compute_io.Po
+  include ./$(DEPDIR)/convparm.Po
+EOF_EOF

@@ -1,0 +1,30 @@
+PLUMED_OBJECTS= \
+	Plumed/biasexchange.o \
+	Plumed/hills.o \
+	Plumed/metadyn.o \
+	Plumed/ptmetad.o \
+	Plumed/read_restraint.o \
+	Plumed/restraint_alfabeta.o \
+	Plumed/restraint_alpharmsd.o \
+	Plumed/restraint_angle.o \
+	Plumed/restraint_antibetarmsd.o \
+	Plumed/restraint.o \
+	Plumed/restraint_coord.o \
+	Plumed/restraint_dihcor.o \
+	Plumed/restraint_dipole.o \
+	Plumed/restraint_dist.o \
+	Plumed/restraint_elstpot.o \
+	Plumed/restraint_energy.o \
+	Plumed/restraint_hbonds.o \
+	Plumed/restraint_helix.o \
+	Plumed/restraint_mindist.o \
+	Plumed/restraint_parabetarmsd.o \
+	Plumed/restraint_position.o \
+	Plumed/restraint_puckering.o \
+	Plumed/restraint_rgyr.o \
+	Plumed/restraint_rmsdtor.o \
+	Plumed/restraint_spath.o \
+	Plumed/restraint_torsion.o \
+	Plumed/restraint_waterbridge.o \
+	Plumed/restraint_zpath.o \
+	Plumed/testderivatives.o

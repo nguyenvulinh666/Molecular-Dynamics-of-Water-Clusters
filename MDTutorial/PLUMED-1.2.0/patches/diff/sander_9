@@ -1,0 +1,233 @@
+patch -c -l -b -F 3 --suffix=.preplumed "./src/sander/Makefile" << \EOF_EOF
+*** ./src/sander/Makefile.preplumed	2006-04-04 01:35:54.000000000 +0200
+--- ./src/sander/Makefile	2010-03-31 14:18:01.000000000 +0200
+***************
+*** 85,94 ****
+      matinv.o assert.o mmtsb.o mmtsb_client.o erfcfun.o veclib.o \
+      is_init.o constantph.o prn_dipoles.o ips.o sglds.o \
+      $(AMOEBAOBJ) bintraj.o \
+!     spatial_recip.o spatial_fft.o parms.o
+  
+  LESOBJ=             \
+!     $(EVBOBJ) constants.o qmmm_module.o trace.o lmod.o decomp.o icosasurf.o \
+      egb.LES.o findmask.o pb_force.o pb_exmol.o pb_mpfrc.o \
+      pb_direct.o \
+      pb_list.o np_force.o sa_driver.o relax_mat.o nmr.LES.o \
+--- 85,98 ----
+      matinv.o assert.o mmtsb.o mmtsb_client.o erfcfun.o veclib.o \
+      is_init.o constantph.o prn_dipoles.o ips.o sglds.o \
+      $(AMOEBAOBJ) bintraj.o \
+!     spatial_recip.o spatial_fft.o parms.o $(METAOBJ) 
+! 
+! include plumed.inc
+! 
+! METAOBJ=$(PLUMED_OBJECTS)
+  
+  LESOBJ=             \
+!     $(EVBOBJ) $(METAOBJ) constants.o qmmm_module.o trace.o lmod.o decomp.o icosasurf.o \
+      egb.LES.o findmask.o pb_force.o pb_exmol.o pb_mpfrc.o \
+      pb_direct.o \
+      pb_list.o np_force.o sa_driver.o relax_mat.o nmr.LES.o \
+***************
+*** 109,115 ****
+      spatial_recip.o spatial_fft.o pimd_vars.PIMD.o parms.o
+  
+  PIMDOBJ= \
+!     parms.o constants.o qmmm_module.PIMD.o \
+      qm_link_atoms.PIMD.o qm_nb_list.PIMD.o qm_mm.PIMD.o \
+      pimd_vars.PIMD.o pimd_init.PIMD.o pimd_force.PIMD.o \
+      dynlib.PIMD.o ew_force.PIMD.o force.PIMD.o mdread.PIMD.o \
+--- 113,119 ----
+      spatial_recip.o spatial_fft.o pimd_vars.PIMD.o parms.o
+  
+  PIMDOBJ= \
+!     parms.o constants.o qmmm_module.PIMD.o $(METAOBJ) \
+      qm_link_atoms.PIMD.o qm_nb_list.PIMD.o qm_mm.PIMD.o \
+      pimd_vars.PIMD.o pimd_init.PIMD.o pimd_force.PIMD.o \
+      dynlib.PIMD.o ew_force.PIMD.o force.PIMD.o mdread.PIMD.o \
+***************
+*** 262,267 ****
+--- 266,274 ----
+  	-/bin/rm *nbflag
+  	cd ../dcqtp; make clean
+  
++ metaclean:
++ 	rm -rf $(METAOBJ) 
++ 
+  depend::
+  	./makedepend > depend
+  
+***************
+*** 271,276 ****
+--- 278,284 ----
+  checkserconf::
+  	./checkserconf
+  
++ $(PLUMED_OBJECTS): metadyn.h
+  
+  #----------HEADER DEPENDENCIES (constructed from ./makedepend > depend)
+  include depend
+EOF_EOF
+patch -c -l -b -F 3 --suffix=.preplumed "./src/sander/mdread.f" << \EOF_EOF
+*** ./src/sander/mdread.f.preplumed	2006-04-04 01:35:55.000000000 +0200
+--- ./src/sander/mdread.f	2010-03-30 17:02:15.000000000 +0200
+***************
+*** 80,86 ****
+           idecomp,temp0les,restraintmask,restraint_wt,bellymask, &
+           noshakemask, &
+           mmtsb_switch, mmtsb_iterations,rdt,icnstph,solvph,ntcnstph, &
+!          ifqnt,ievb, &
+  #ifdef PIMD
+           pimd_runtype, pimd_use_original_mass, ineb, &
+  #endif
+--- 80,86 ----
+           idecomp,temp0les,restraintmask,restraint_wt,bellymask, &
+           noshakemask, &
+           mmtsb_switch, mmtsb_iterations,rdt,icnstph,solvph,ntcnstph, &
+!          ifqnt,ievb,plumed,plumedfile, &
+  #ifdef PIMD
+           pimd_runtype, pimd_use_original_mass, ineb, &
+  #endif
+***************
+*** 131,136 ****
+--- 131,138 ----
+     ntb = 1
+     ntt = 0
+     temp0 = 300.0d0
++    plumed = 0    
++    plumedfile = 'plumed.dat'
+  #if defined(LES) || defined(PIMD)
+     
+     ! alternate temp for LES copies, if negative then use single bath
+***************
+*** 308,313 ****
+--- 310,319 ----
+        call mexit(6,1)
+     end if
+  
++    if (plumed.eq.1) then
++      write(6, '(1x,a,/)') 'PLUMED is on'
++      write(6, '(1x,a,a,/)') 'PLUMEDfile is ',plumedfile
++    endif
+     if (ifqnt>0) then
+       qmmm_nml%ifqnt = .true.
+       if (saltcon /= 0.0d0) then
+EOF_EOF
+patch -c -l -b -F 3 --suffix=.preplumed "./src/sander/md.h" << \EOF_EOF
+*** ./src/sander/md.h.preplumed	2006-04-04 01:35:55.000000000 +0200
+--- ./src/sander/md.h	2010-03-30 17:02:15.000000000 +0200
+***************
+*** 17,24 ****
+        gbsa,vrand,iwrap,nrespa,irespa,nrespai,icfe,  &!48
+        rbornstat,ivcap,iconstreff,        &!51
+        neb,vv,tmode,ipol,iesp,ievb,nodeid,num_noshake,    &!59
+!       idecomp,icnstph,ntcnstph,maxdup,numexchg,repcrd,numwatkeep     !66
+! parameter (BC_MDI=66)
+  
+  common/mdi/nrp,nspm,ig, &
+        ntx,ntcx,ntxo,ntt,ntp,ntr,init,ntcm,nscm, &
+--- 17,25 ----
+        gbsa,vrand,iwrap,nrespa,irespa,nrespai,icfe,  &!48
+        rbornstat,ivcap,iconstreff,        &!51
+        neb,vv,tmode,ipol,iesp,ievb,nodeid,num_noshake,    &!59
+!       idecomp,icnstph,ntcnstph,maxdup,numexchg,repcrd,numwatkeep,     &!66
+!       plumed  !67
+! parameter (BC_MDI=67)
+  
+  common/mdi/nrp,nspm,ig, &
+        ntx,ntcx,ntxo,ntt,ntp,ntr,init,ntcm,nscm, &
+***************
+*** 28,34 ****
+        iwatpr,nsolw,igb,alpb,iyammp,gbsa,vrand,numexchg,repcrd,numwatkeep, &
+        iwrap,nrespa,irespa,nrespai,icfe,rbornstat, &
+        ivcap,iconstreff,idecomp,klambda,icnstph,ntcnstph,maxdup,neb,vv, &
+! 	  tmode,ipol,iesp,ievb,nodeid,num_noshake
+  
+  ! ... floats:
+  
+--- 29,35 ----
+        iwatpr,nsolw,igb,alpb,iyammp,gbsa,vrand,numexchg,repcrd,numwatkeep, &
+        iwrap,nrespa,irespa,nrespai,icfe,rbornstat, &
+        ivcap,iconstreff,idecomp,klambda,icnstph,ntcnstph,maxdup,neb,vv, &
+! 	  tmode,ipol,iesp,ievb,nodeid,num_noshake,plumed
+  
+  ! ... floats:
+  
+***************
+*** 49,57 ****
+  ! ... strings:
+  
+  character(len=4) iwtnm,iowtnm,ihwtnm
+! character(len=256) restraintmask,bellymask,tgtfitmask,tgtrmsmask,noshakemask
+  common/mds/ restraintmask,bellymask,tgtfitmask,tgtrmsmask,noshakemask,  &
+!             iwtnm,iowtnm,ihwtnm(2)
+  
+  !-------------END    md.h  ------------------------------------------------
+  
+--- 50,58 ----
+  ! ... strings:
+  
+  character(len=4) iwtnm,iowtnm,ihwtnm
+! character(len=256) restraintmask,bellymask,tgtfitmask,tgtrmsmask,noshakemask,plumedfile
+  common/mds/ restraintmask,bellymask,tgtfitmask,tgtrmsmask,noshakemask,  &
+!             iwtnm,iowtnm,ihwtnm(2),plumedfile
+  
+  !-------------END    md.h  ------------------------------------------------
+  
+EOF_EOF
+patch -c -l -b -F 3 --suffix=.preplumed "./src/sander/sander.f" << \EOF_EOF
+*** ./src/sander/sander.f.preplumed	2006-04-04 01:35:55.000000000 +0200
+--- ./src/sander/sander.f	2010-03-30 17:02:15.000000000 +0200
+***************
+*** 511,516 ****
+--- 511,519 ----
+     call mpi_bcast(lastrst,1,mpi_integer,0,commsander,ierr)
+  
+     call stack_setup()
++ 
++    call mpi_bcast(plumed,1,MPI_INTEGER,0,commsander,ierr)
++    call mpi_bcast(plumedfile,256,MPI_CHARACTER,0,commsander,ierr)
+        
+     call mpi_barrier(commsander,ierr)
+     !     ---allocate memory on the non-master nodes:
+EOF_EOF
+patch -c -l -b -F 3 --suffix=.preplumed "./src/sander/runmd.f" << \EOF_EOF
+*** ./src/sander/runmd.f.preplumed	2006-04-04 01:35:55.000000000 +0200
+--- ./src/sander/runmd.f	2010-03-30 17:02:15.000000000 +0200
+***************
+*** 480,485 ****
+--- 480,497 ----
+     nitp = 0
+     nits = 0
+     
++    ! init PLUMED 
++    if(plumed.eq.1) then 
++       if(ifbox/=0 .and. ifbox/=1 .and. ifbox/=2) then
++        write (6,*) "!!!!! PLUMED ERROR: Only orthorhombic and truncted octahedron cells are supported in this release."
++        write (6,*) "!!!!! ABORTING RUN"
++        stop
++       endif
++       call init_metadyn(nr,dt,amass,xx(l15),ifbox,0,trim(adjustl(plumedfile))//char(0))
++    endif
++    ! end init PLUMED 
++  
++    
+     !=======================================================================
+     !     ----- MAKE A FIRST DYNAMICS STEP -----
+     !=======================================================================
+***************
+*** 817,822 ****
+--- 829,840 ----
+           xx(l96),xx(l97),xx(l98),xx(l99), qsetup,qpsander, &
+              do_list_update)
+  
++    !PLUMED force added
++    if(plumed.eq.1) then
++      call  meta_force_calculation(box,nstep,x,x,x,f,f,f,ener(23));
++    end if
++    !PLUMED end  
++ 
+     ! Constant pH transition evaluation
+     if ((icnstph /= 0) .and. (mod(irespa,ntcnstph) == 0)) then
+        call cnstphendstep(ix(icpstinf),ix(icpresst),ix(icpptcnt), &
+EOF_EOF

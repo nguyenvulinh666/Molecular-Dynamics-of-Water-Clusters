@@ -1,0 +1,132 @@
+ Number of the central atom :          16
+ coordinates     x        y        z    
+            -15.9083   -3.9624  -14.9877
+Cutoff :  3.000
+ Atoms  Composition  Min.Stoychiometry :
+O2-           4.000   4.000
+Si4+          0.000   0.000
+Na+           1.000   1.000
+Ca2+          1.000   1.000
+P5+           1.000   1.000
+ displacement=  0.000000000000000E+000
+----------------------------------------
+ Number of the central atom :         268
+ coordinates     x        y        z    
+             -7.8176  -13.0590    8.7517
+Cutoff :  3.500
+ Atoms  Composition  Min.Stoychiometry :
+O2-           8.000   4.000
+Si4+          0.000   0.000
+Na+           3.000   1.500
+Ca2+          2.000   1.000
+P5+           2.000   1.000
+ displacement=  0.500000000000000     
+----------------------------------------
+ Number of the central atom :         250
+ coordinates     x        y        z    
+            -15.1625  -15.5810   -5.0727
+Cutoff :  4.000
+ Atoms  Composition  Min.Stoychiometry :
+O2-          12.000   4.000
+Si4+          0.000   0.000
+Na+           3.000   1.000
+Ca2+          3.000   1.000
+P5+           3.000   1.000
+ displacement=  0.000000000000000E+000
+----------------------------------------
+ Number of the central atom :          22
+ coordinates     x        y        z    
+            -16.3202    0.6945   -9.0092
+Cutoff :  4.500
+ Atoms  Composition  Min.Stoychiometry :
+O2-          16.000   4.000
+Si4+          0.000   0.000
+Na+           5.000   1.250
+Ca2+          4.000   1.000
+P5+           4.000   1.000
+ displacement=  0.250000000000000     
+----------------------------------------
+ Number of the central atom :         638
+ coordinates     x        y        z    
+             14.7426   -0.6386   -9.1421
+Cutoff :  5.000
+ Atoms  Composition  Min.Stoychiometry :
+O2-          20.000   4.000
+Si4+          0.000   0.000
+Na+           6.000   1.200
+Ca2+          7.000   1.400
+P5+           5.000   1.000
+ displacement=  0.600000000000000     
+----------------------------------------
+ Number of the central atom :         813
+ coordinates     x        y        z    
+             14.1777  -14.0699   -7.4680
+Cutoff :  5.500
+ Atoms  Composition  Min.Stoychiometry :
+O2-          32.000   4.571
+Si4+          1.000   0.143
+Na+           7.000   1.000
+Ca2+          7.000   1.000
+P5+           7.000   1.000
+ displacement=  0.714285714285714     
+----------------------------------------
+ Number of the central atom :        1284
+ coordinates     x        y        z    
+             12.1744  -15.7176   -6.7924
+Cutoff :  6.000
+ Atoms  Composition  Min.Stoychiometry :
+O2-          37.000   4.625
+Si4+          2.000   0.250
+Na+          10.000   1.250
+Ca2+          8.000   1.000
+P5+           8.000   1.000
+ displacement=   1.12500000000000     
+----------------------------------------
+ Number of the central atom :        1284
+ coordinates     x        y        z    
+             12.1744  -15.7176   -6.7924
+Cutoff :  6.500
+ Atoms  Composition  Min.Stoychiometry :
+O2-          49.000   4.455
+Si4+          5.000   0.455
+Na+          12.000   1.091
+Ca2+         11.000   1.000
+P5+          11.000   1.000
+ displacement=   1.00000000000000     
+----------------------------------------
+ Number of the central atom :        1284
+ coordinates     x        y        z    
+             12.1744  -15.7176   -6.7924
+Cutoff :  7.000
+ Atoms  Composition  Min.Stoychiometry :
+O2-          57.000   4.385
+Si4+          6.000   0.462
+Na+          15.000   1.154
+Ca2+         15.000   1.154
+P5+          13.000   1.000
+ displacement=   1.15384615384615     
+----------------------------------------
+ Number of the central atom :         358
+ coordinates     x        y        z    
+             12.1908   -1.1615  -11.0608
+Cutoff :  7.500
+ Atoms  Composition  Min.Stoychiometry :
+O2-          77.000   5.500
+Si4+         13.000   0.929
+Na+          15.000   1.071
+Ca2+         15.000   1.071
+P5+          14.000   1.000
+ displacement=   2.57142857142857     
+----------------------------------------
+ Number of the central atom :        1378
+ coordinates     x        y        z    
+             12.9526   -6.5442  -10.2839
+Cutoff :  8.000
+ Atoms  Composition  Min.Stoychiometry :
+O2-          94.000   5.875
+Si4+         12.000   0.750
+Na+          26.000   1.625
+Ca2+         16.000   1.000
+P5+          16.000   1.000
+ displacement=   3.25000000000000     
+----------------------------------------

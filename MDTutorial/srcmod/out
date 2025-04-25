@@ -1,0 +1,1029 @@
+angles_module.f:        write(nrite,"(/,1x,'number of bond angles',
+angles_module.f:        write(nrite,"(/,/,1x,'bond angle details:',
+angles_module.f:          if(idnode.eq.0)write(nrite,'(14x,a16,40a1)')
+angles_module.f:            if(idnode.eq.0)write(nrite,*)message
+angles_module.f:     x      write(nrite,"(27x,a4,3i10,1p,e12.4,0p,9f12.6)")
+angles_module.mod:567 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+angles_module.mod:0 566 'nrite' 0 567 'nsolwr' 0 568 'nstats' 0 569 'nswitch' 0 570 'ntable'
+bonds_module.f:        write(nrite,"(/,1x,'number of chemical bonds',
+bonds_module.f:        write(nrite,"(/,/,1x,'chemical bond details:',
+bonds_module.f:          if(idnode.eq.0)write(nrite,'(12x,a16,40a1)')
+bonds_module.f:            if(idnode.eq.0)write(nrite,*)message
+bonds_module.f:     x      write(nrite,"(27x,a4,2i10,2x,1p,10e15.6)")
+bonds_module.mod:478 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+bonds_module.mod:0 474 'nrdfdt' 0 475 'nread' 0 476 'nrest' 0 477 'nrite' 0 478 'nsolwr'
+config_module.f:          if(idnode.eq.0)write(nrite,'(10i5)')fail
+config_module.f.preplumed:          if(idnode.eq.0)write(nrite,'(10i5)')fail
+config_module.mod:223 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+config_module.mod:'nread' 0 221 'nrest' 0 222 'nrite' 0 223 'nsolwr' 0 224 'nstats' 0 225
+core_shell_module.f:        write(nrite,
+core_shell_module.f:          write(nrite,
+core_shell_module.f:          write(nrite,
+core_shell_module.f:        if(idnode.eq.0) write(nrite,
+core_shell_module.f:                  if(idnode.eq.0)write(nrite,'(/,13x,a,2i10)')
+core_shell_module.f:                  if(idnode.eq.0)write(nrite,'(/,13x,a,2i10)')
+core_shell_module.mod:607 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+core_shell_module.mod:'nrite' 0 607 'nsolwr' 0 608 'nstats' 0 609 'nswitch' 0 610 'ntable' 0
+coulomb_module.mod:913 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+coulomb_module.mod:0 911 'nrest' 0 912 'nrite' 0 913 'nsolwr' 0 914 'nstats' 0 915 'nswitch'
+define_system_module.f:        write(nrite,"(3(1x,120('*'),/),1x,15('*'),5x,80a1,5x,15('*'),/,
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:            if(idnode.eq.0)write(nrite,
+define_system_module.f:            if(idnode.eq.0)write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:            if(idnode.eq.0)write(nrite,
+define_system_module.f:            if(idnode.eq.0)write(nrite,
+define_system_module.f:            if(idnode.eq.0)write(nrite,"(/,1x,'restart requested')")
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:            if(idnode.eq.0)write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:            write(nrite,
+define_system_module.f:            write(nrite,
+define_system_module.f:            write(nrite,
+define_system_module.f:            write(nrite,
+define_system_module.f:            write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:            write(nrite,"(/,1x,'impact option selected')")
+define_system_module.f:            write(nrite,"(
+define_system_module.f:            write(nrite,
+define_system_module.f:            write(nrite,
+define_system_module.f:            write(nrite,
+define_system_module.f:            write(nrite,
+define_system_module.f:            write(nrite,
+define_system_module.f:            write(nrite,
+define_system_module.f:            write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:                write(nrite,
+define_system_module.f:                write(nrite,
+define_system_module.f:            if(idnode.eq.0)write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:                write(nrite,
+define_system_module.f:                write(nrite,
+define_system_module.f:            if(idnode.eq.0)write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,"(/,/,100a1)")record
+define_system_module.f:        if(idnode.eq.0)write(nrite,
+define_system_module.f:     x  write(nrite,"(/,/,'SYSTEM SPECIFICATION')")
+define_system_module.f:     x      write(nrite,"(/,' neutral group implementation in use')")
+define_system_module.f:     x      write(nrite,"(/,/,1x,'number of molecular types',6x,i10)")
+define_system_module.f:     x        write(nrite,"(/,1x,'molecular species type',9x,i10)")
+define_system_module.f:     x        write(nrite,"(/,/,1x,'name of species:',13x,40a1)")
+define_system_module.f:     x            write(nrite,"(/,1x,'number of molecules  ',
+define_system_module.f:                if(idnode.eq.0)write(nrite,'(12x,a)')record
+define_system_module.f:          if(idnode.eq.0)write(nrite,'(100a)')record
+define_system_module.f:        if(keyshl.eq.1)write(nrite,
+define_system_module.f:        if(keyshl.eq.2)write(nrite,
+define_system_module.f:      if(idnode.eq.0)write(nrite,
+define_system_module.f:      if(idnode.eq.0)write(nrite,
+define_system_module.f:                write(nrite,"(/,/,'unidentified atom label :',8a1,
+define_system_module.f:        write(nrite,"(/,/,1x,'simulation cell vectors'/,/)")
+define_system_module.f:        write(nrite,"(21x,3f12.6)")cell
+define_system_module.f:        write(nrite,
+define_system_module.f:     x  write(nrite,"(/,/,' link cell algorithm in use')")
+define_system_module.f:     x  write(nrite,"(/,/,' total degrees of freedom       ',f20.0,/,
+define_system_module.f:      if(idnode.eq.0)write(nrite,
+define_system_module.f:     x  write(nrite,"(6x,'i',7x,'x(i)',8x,'y(i)',8x,'z(i)',
+define_system_module.f:     x  write(nrite,"(6x,'i',7x,'x(i)',8x,'y(i)',8x,'z(i)',
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:     x    write(nrite,"(/,' energy units=dl_poly internal ',
+define_system_module.f:     x    write(nrite,"(/,' energy units=electron volts ')")
+define_system_module.f:     x    write(nrite,"(/,' energy units=kilo electron volts ')")
+define_system_module.f:     x    write(nrite,"(/,' energy units=kcal/ mol ')")
+define_system_module.f:     x    write(nrite,"(/,' energy units=kjoule/mol ')")
+define_system_module.f:     x    write(nrite,"(/,' energy units=kelvin ')")
+define_system_module.f:     x    write(nrite,"(/,' energy units=dl_poly internal',
+define_system_module.f:        if(idnode.eq.0)write(nrite,'(a)')record
+define_system_module.f:            write(nrite,'(/,/,12x,a)')' summary of rigid body set up'
+define_system_module.f:                write(nrite,'(/,a,i10)')' group of type ',id
+define_system_module.f:                write(nrite,'(12x,a,f20.10)')' total mass    ',
+define_system_module.f:                write(nrite,'(12x,a,3f20.10)')' rot. inertia  ',
+define_system_module.f:                write(nrite,'(/,12x,a,3(8x,a7))')' site','a coord',
+define_system_module.f:                  write(nrite,'(12x,i5,1p,3e15.5)')j,gxx(id,j),
+define_system_module.f:          if(idnode.eq.0)write(nrite,'(a,i10,a,i10)')
+define_system_module.f:        if(idnode.eq.0)write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,"(/,/,100a1)")record
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,"(/,/,100a1)")record
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,
+define_system_module.f:          if(idnode.eq.0)write(nrite,"(/,/,100a1)")record
+define_system_module.f:            write(nrite,"(/,1x,'NST mode 0 X<>Y<>Z')")
+define_system_module.f:            write(nrite,
+define_system_module.f:            write(nrite,
+define_system_module.f:            write(nrite,
+define_system_module.f:        if(idnode.eq.0)write(nrite,
+define_system_module.f:        write(nrite,"(/,1x,'NEB calculation controls')")
+define_system_module.f:        write(nrite,"(/,1x,'identity of basin 1            ',
+define_system_module.f:        write(nrite,"(1x,'identity of basin 2            ',
+define_system_module.f:        write(nrite,
+define_system_module.f:     x  write(nrite,"(/,1x,'bias potential dynamics controls')")
+define_system_module.f:        if(idnode.eq.0)write(nrite,"(
+define_system_module.f:          write(nrite,"(
+define_system_module.f:          if(prechk)write(nrite,
+define_system_module.f:        write(nrite,
+define_system_module.f:        if(prechk)write(nrite,
+define_system_module.f:        if(tadall)write(nrite,
+define_system_module.f:        if(idnode.eq.0)write(nrite,
+define_system_module.f:          write(nrite,
+define_system_module.f:          write(nrite,
+define_system_module.f:          write(nrite,
+define_system_module.f:          write(nrite,
+define_system_module.f:          write(nrite,
+define_system_module.f:          write(nrite,
+define_system_module.f:          write(nrite,
+define_system_module.f:        write(nrite,
+define_system_module.f:        write(nrite,
+define_system_module.f:        write(nrite,
+define_system_module.f:        write(nrite,
+define_system_module.f:        write(nrite,
+define_system_module.f:        write(nrite,
+define_system_module.f:        write(nrite,
+define_system_module.f.preplumed:        write(nrite,"(3(1x,120('*'),/),1x,15('*'),5x,80a1,5x,15('*'),/,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:            if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:            if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:            if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:            if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:            if(idnode.eq.0)write(nrite,"(/,1x,'restart requested')")
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:            if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:            write(nrite,
+define_system_module.f.preplumed:            write(nrite,
+define_system_module.f.preplumed:            write(nrite,
+define_system_module.f.preplumed:            write(nrite,
+define_system_module.f.preplumed:            write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:            write(nrite,"(/,1x,'impact option selected')")
+define_system_module.f.preplumed:            write(nrite,"(
+define_system_module.f.preplumed:            write(nrite,
+define_system_module.f.preplumed:            write(nrite,
+define_system_module.f.preplumed:            write(nrite,
+define_system_module.f.preplumed:            write(nrite,
+define_system_module.f.preplumed:            write(nrite,
+define_system_module.f.preplumed:            write(nrite,
+define_system_module.f.preplumed:            write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:                write(nrite,
+define_system_module.f.preplumed:                write(nrite,
+define_system_module.f.preplumed:            if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:                write(nrite,
+define_system_module.f.preplumed:                write(nrite,
+define_system_module.f.preplumed:            if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,"(/,/,100a1)")record
+define_system_module.f.preplumed:        if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:     x  write(nrite,"(/,/,'SYSTEM SPECIFICATION')")
+define_system_module.f.preplumed:     x      write(nrite,"(/,' neutral group implementation in use')")
+define_system_module.f.preplumed:     x      write(nrite,"(/,/,1x,'number of molecular types',6x,i10)")
+define_system_module.f.preplumed:     x        write(nrite,"(/,1x,'molecular species type',9x,i10)")
+define_system_module.f.preplumed:     x        write(nrite,"(/,/,1x,'name of species:',13x,40a1)")
+define_system_module.f.preplumed:     x            write(nrite,"(/,1x,'number of molecules  ',
+define_system_module.f.preplumed:                if(idnode.eq.0)write(nrite,'(12x,a)')record
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,'(100a)')record
+define_system_module.f.preplumed:        if(keyshl.eq.1)write(nrite,
+define_system_module.f.preplumed:        if(keyshl.eq.2)write(nrite,
+define_system_module.f.preplumed:      if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:      if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:                write(nrite,"(/,/,'unidentified atom label :',8a1,
+define_system_module.f.preplumed:        write(nrite,"(/,/,1x,'simulation cell vectors'/,/)")
+define_system_module.f.preplumed:        write(nrite,"(21x,3f12.6)")cell
+define_system_module.f.preplumed:        write(nrite,
+define_system_module.f.preplumed:     x  write(nrite,"(/,/,' link cell algorithm in use')")
+define_system_module.f.preplumed:     x  write(nrite,"(/,/,' total degrees of freedom       ',f20.0,/,
+define_system_module.f.preplumed:      if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:     x  write(nrite,"(6x,'i',7x,'x(i)',8x,'y(i)',8x,'z(i)',
+define_system_module.f.preplumed:     x  write(nrite,"(6x,'i',7x,'x(i)',8x,'y(i)',8x,'z(i)',
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:     x    write(nrite,"(/,' energy units=dl_poly internal ',
+define_system_module.f.preplumed:     x    write(nrite,"(/,' energy units=electron volts ')")
+define_system_module.f.preplumed:     x    write(nrite,"(/,' energy units=kilo electron volts ')")
+define_system_module.f.preplumed:     x    write(nrite,"(/,' energy units=kcal/ mol ')")
+define_system_module.f.preplumed:     x    write(nrite,"(/,' energy units=kjoule/mol ')")
+define_system_module.f.preplumed:     x    write(nrite,"(/,' energy units=kelvin ')")
+define_system_module.f.preplumed:     x    write(nrite,"(/,' energy units=dl_poly internal',
+define_system_module.f.preplumed:        if(idnode.eq.0)write(nrite,'(a)')record
+define_system_module.f.preplumed:            write(nrite,'(/,/,12x,a)')' summary of rigid body set up'
+define_system_module.f.preplumed:                write(nrite,'(/,a,i10)')' group of type ',id
+define_system_module.f.preplumed:                write(nrite,'(12x,a,f20.10)')' total mass    ',
+define_system_module.f.preplumed:                write(nrite,'(12x,a,3f20.10)')' rot. inertia  ',
+define_system_module.f.preplumed:                write(nrite,'(/,12x,a,3(8x,a7))')' site','a coord',
+define_system_module.f.preplumed:                  write(nrite,'(12x,i5,1p,3e15.5)')j,gxx(id,j),
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,'(a,i10,a,i10)')
+define_system_module.f.preplumed:        if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,"(/,/,100a1)")record
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,"(/,/,100a1)")record
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:          if(idnode.eq.0)write(nrite,"(/,/,100a1)")record
+define_system_module.f.preplumed:            write(nrite,"(/,1x,'NST mode 0 X<>Y<>Z')")
+define_system_module.f.preplumed:            write(nrite,
+define_system_module.f.preplumed:            write(nrite,
+define_system_module.f.preplumed:            write(nrite,
+define_system_module.f.preplumed:        if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:        write(nrite,"(/,1x,'NEB calculation controls')")
+define_system_module.f.preplumed:        write(nrite,"(/,1x,'identity of basin 1            ',
+define_system_module.f.preplumed:        write(nrite,"(1x,'identity of basin 2            ',
+define_system_module.f.preplumed:        write(nrite,
+define_system_module.f.preplumed:     x  write(nrite,"(/,1x,'bias potential dynamics controls')")
+define_system_module.f.preplumed:        if(idnode.eq.0)write(nrite,"(
+define_system_module.f.preplumed:          write(nrite,"(
+define_system_module.f.preplumed:          if(prechk)write(nrite,
+define_system_module.f.preplumed:        write(nrite,
+define_system_module.f.preplumed:        if(prechk)write(nrite,
+define_system_module.f.preplumed:        if(tadall)write(nrite,
+define_system_module.f.preplumed:        if(idnode.eq.0)write(nrite,
+define_system_module.f.preplumed:          write(nrite,
+define_system_module.f.preplumed:          write(nrite,
+define_system_module.f.preplumed:          write(nrite,
+define_system_module.f.preplumed:          write(nrite,
+define_system_module.f.preplumed:          write(nrite,
+define_system_module.f.preplumed:          write(nrite,
+define_system_module.f.preplumed:          write(nrite,
+define_system_module.f.preplumed:        write(nrite,
+define_system_module.f.preplumed:        write(nrite,
+define_system_module.f.preplumed:        write(nrite,
+define_system_module.f.preplumed:        write(nrite,
+define_system_module.f.preplumed:        write(nrite,
+define_system_module.f.preplumed:        write(nrite,
+define_system_module.f.preplumed:        write(nrite,
+define_system_module.mod:2459 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+define_system_module.mod:'nrest' 0 2458 'nrite' 0 2459 'nsolwr' 0 2460 'nst_b1' 0 2461 'nst_h1' 0
+dihedral_module.f:        write(nrite,"(/,1x,'number of dihedral angles',
+dihedral_module.f:        write(nrite,"(/,/,1x,'dihedral angle details:',
+dihedral_module.f:          if(idnode.eq.0)write(nrite,'(14x,a16,40a1)')
+dihedral_module.f:            if(idnode.eq.0)write(nrite,*)message
+dihedral_module.f:     x      write(nrite,"(27x,a4,4i10,1p,e12.4,0p,9f12.6)")
+dihedral_module.mod:577 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+dihedral_module.mod:0 576 'nrite' 0 577 'nsolwr' 0 578 'nstats' 0 579 'nswitch' 0 580 'ntable'
+dlpoly.f:      if(idnode.eq.0)open(nrite,file='OUTPUT')
+dlpoly.f:      if(idnode.eq.0) write (nrite,
+dlpoly.f:         write(nrite,'(/a22)' )"-- PLUMED ENABLED --  "
+dlpoly.f:         write(nrite,'(a22,a)')"   PLUMED INPUT FILE: ",trim(plumedfile)
+dlpoly.f:        call flush(nrite)
+dlpoly.f:        if(idnode.eq.0)write(nrite,"(1x,120('-'))")
+dlpoly.f:            write(nrite,"(1x,120('-'))")
+dlpoly.f:            write(nrite,'(1x,"TRA",3i6,1p,4e14.5)')
+dlpoly.f:            write(nrite,"(1x,120('-'))")
+dlpoly.f:     x        write(nrite,"(1x,120('-'),
+dlpoly.f:            write(nrite,"(1x,i8,1p,9e12.4,/,1x,0p,f8.1,1p,9e12.4,
+dlpoly.f:            write(nrite,"(/,1x,' rolling',1p,9e12.4,/,1x,'averages',
+dlpoly.f:            write(nrite,"(1x,120('-'))")
+dlpoly.f:     x      write(nrite,"(/,/,1x,'switching off temperature ',
+dlpoly.f:      if(idnode.eq.0)write(nrite,
+dlpoly.f:        if(idnode.eq.0)write(nrite,
+dlpoly.f:        close (nrite)
+dlpoly.f.preplumed:      if(idnode.eq.0)open(nrite,file='OUTPUT')
+dlpoly.f.preplumed:      if(idnode.eq.0) write (nrite,
+dlpoly.f.preplumed:        if(idnode.eq.0)write(nrite,"(1x,120('-'))")
+dlpoly.f.preplumed:            write(nrite,"(1x,120('-'))")
+dlpoly.f.preplumed:            write(nrite,'(1x,"TRA",3i6,1p,4e14.5)')
+dlpoly.f.preplumed:            write(nrite,"(1x,120('-'))")
+dlpoly.f.preplumed:     x        write(nrite,"(1x,120('-'),
+dlpoly.f.preplumed:            write(nrite,"(1x,i8,1p,9e12.4,/,1x,0p,f8.1,1p,9e12.4,
+dlpoly.f.preplumed:            write(nrite,"(/,1x,' rolling',1p,9e12.4,/,1x,'averages',
+dlpoly.f.preplumed:            write(nrite,"(1x,120('-'))")
+dlpoly.f.preplumed:     x      write(nrite,"(/,/,1x,'switching off temperature ',
+dlpoly.f.preplumed:      if(idnode.eq.0)write(nrite,
+dlpoly.f.preplumed:        if(idnode.eq.0)write(nrite,
+dlpoly.f.preplumed:        close (nrite)
+driver_module.f:     x    write(nrite,"(/,/,1x,'structure optimisation converged ',
+driver_module.f:c$$$        write(nrite,"(1x,120('-'),
+driver_module.f:c$$$          write(nrite,"(1x,i8,1p,8e12.4)")
+driver_module.f:c$$$          write(nrite,"(1x,120('-'))")
+driver_module.f:          write(nrite,'(1x,"minimisation converged after ",i6," cycles"
+driver_module.f:          write(nrite,'(1x,"minimisation NOT converged after ",i6,
+driver_module.f:        write(nrite,"(1x,120('-'))")
+driver_module.mod:1741 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+driver_module.mod:'nread' 0 1739 'nrest' 0 1740 'nrite' 0 1741 'nsolwr' 0 1742 'nstats' 0
+ensemble_tools_module.mod:731 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+ensemble_tools_module.mod:0 730 'nrite' 0 731 'nsolwr' 0 732 'nstats' 0 733 'nstqmtk_p' 0 734
+error_module.f:          write(nrite,'(/,/,1x,a,i5)') 
+error_module.f:          write(nrite,'(/,/,1x,a,i5)') 
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:            write(nrite,'(/,/,1x,a)')
+error_module.f:          write(nrite,'(/,/,1x,a)')
+error_module.f:          close (nrite)
+error_module.f:          write(nrite,'(/,1x,a)')
+error_module.f:          write(nrite,'(/,1x,a50,i5,5x,a6,2i10)')
+error_module.f:          write(nrite,'(/,1x,a)')
+error_module.f:          write(nrite,'(/,1x,a,/,1x,a,f12.6)')
+error_module.f:          write(nrite,'(/,1x,a,/,1x,a,f12.6)')
+error_module.f:          write(nrite,'(/,1x,a,f12.6,a)')
+error_module.f:          write(nrite,'(/,1x,a,f12.6,a)')
+error_module.f:          write(nrite,'(/,1x,a,f12.6,a)')
+error_module.f:          write(nrite,'(/,1x,a)')
+error_module.f:          write(nrite,'(/,1x,a,i6,a,i6)')
+error_module.f:          write(nrite,'(/,1x,a)')
+error_module.f:          write(nrite,'(/,1x,a,1p,e12.4,a)')
+error_module.f:          write(nrite,'(/,1x,a,1p,e12.4,a)')
+error_module.f:          write(nrite,'(/,1x,a)')
+error_module.f:          write(nrite,'(/,1x,a)')
+error_module.f:          write(nrite,'(/,1x,a,i5,a)')
+error_module.f:          write(nrite,'(/,1x,a)')
+error_module.f:          write(nrite,'(/,1x,a)')
+error_module.mod:195 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+error_module.mod:192 'nread' 0 193 'nrest' 0 194 'nrite' 0 195 'nsolwr' 0 196 'nstats' 0
+ewald_module.f:              write(nrite,'(a,i10)')
+ewald_module.f:              write(nrite,'(a,i10)')
+ewald_module.mod:844 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+ewald_module.mod:'nrdfdt' 0 841 'nread' 0 842 'nrest' 0 843 'nrite' 0 844 'nsolwr' 0 845
+exclude_module.f:          if(idnode.eq.0)write(nrite,*)'make msatms >= ',nsatms
+exclude_module.f:        if(idnode.eq.0)write(nrite,*)'mxexcl must be at least ',ibig
+exclude_module.f:        if(idnode.eq.0)write(nrite,*)'mxexcl is currently     ',mxexcl
+exclude_module.f:        if(idnode.eq.0)write(nrite,*)'mxexcl must be at least ',ibig
+exclude_module.f:        if(idnode.eq.0)write(nrite,*)'mxexcl is currently     ',mxexcl
+exclude_module.mod:768 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+exclude_module.mod:0 766 'nrest' 0 767 'nrite' 0 768 'nsolwr' 0 769 'nstats' 0 770 'nswitch'
+external_field_module.f:        if(idnode.eq.0) write(nrite,*) message
+external_field_module.f:        write(nrite,"(/,/,1x,'external field key ',13x,a4,
+external_field_module.f:        write(nrite,"(2(/,1x,1p,5e15.5))") prmfld
+external_field_module.mod:243 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+external_field_module.mod:'nrite' 0 243 'nsolwr' 0 244 'nstats' 0 245 'ntable' 0 246 'ntrk' 0 247
+forces_module.f:            write(nrite,*) 'Here test'
+forces_module.f:        if(idnode.eq.0)write(nrite,*)'mxxdf must be at least ',ibig
+forces_module.f:        if(idnode.eq.0)write(nrite,*)'mxxdf is currently ',mxxdf
+forces_module.f:        if(idnode.eq.0)write(nrite,*)'mxxdf must be at least ',ibig
+forces_module.f:        if(idnode.eq.0)write(nrite,*)'mxxdf is currently ',mxxdf
+forces_module.f.preplumed:        if(idnode.eq.0)write(nrite,*)'mxxdf must be at least ',ibig
+forces_module.f.preplumed:        if(idnode.eq.0)write(nrite,*)'mxxdf is currently ',mxxdf
+forces_module.f.preplumed:        if(idnode.eq.0)write(nrite,*)'mxxdf must be at least ',ibig
+forces_module.f.preplumed:        if(idnode.eq.0)write(nrite,*)'mxxdf is currently ',mxxdf
+forces_module.mod:1522 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+forces_module.mod:'npro' 0 1518 'nrdfdt' 0 1519 'nread' 0 1520 'nrest' 0 1521 'nrite' 0
+four_body_module.f:        write(nrite,"(/,/,1x,'number of specified four ',
+four_body_module.f:        write(nrite,"(/,/,16x,'atom 1  ','atom 2  ','atom 3  ',
+four_body_module.f:          if(idnode.eq.0) write(nrite,*) message
+four_body_module.f:     x    write(nrite,"(16x,4a8,4x,a4,1x,1p,9e13.5)") 
+four_body_module.f:        if(idnode.eq.0) write(nrite,'(a,i6)')
+four_body_module.f:        write(nrite,'(a,i6)')
+four_body_module.mod:571 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+four_body_module.mod:0 570 'nrite' 0 571 'nsolwr' 0 572 'nstats' 0 573 'nswitch' 0 574 'ntable'
+hkewald_module.mod:838 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+hkewald_module.mod:0 836 'nrest' 0 837 'nrite' 0 838 'nsolwr' 0 839 'nstats' 0 840 'nswitch'
+hyper_dynamics_module.f:          if(idnode.eq.0)write(nrite,'(10i5)')fail
+hyper_dynamics_module.f:          write(nrite,'(1x,"MIN",i10,3i6,1p,3e14.5)')
+hyper_dynamics_module.f:          write(nrite,"(1x,120('-'))")
+hyper_dynamics_module.f:          write(nrite,'(1x,"PRE",i10)')nstep
+hyper_dynamics_module.f:          write(nrite,"(1x,120('-'))")
+hyper_dynamics_module.f:          write(nrite,'(1x,"MIN",i10,3i6,1p,3e14.5)')
+hyper_dynamics_module.f:          write(nrite,"(1x,120('-'))")
+hyper_dynamics_module.f:                  write(nrite,'(1x,"TRA",i10,3i6,1p,4e14.5)')
+hyper_dynamics_module.f:                  write(nrite,'(1x,"BLK",2i10)')nstep,numdark
+hyper_dynamics_module.f:                  write(nrite,"(1x,120('-'))")
+hyper_dynamics_module.f:                write(nrite,'(1x,"TRA",i10,3i6,1p,3e14.5)')
+hyper_dynamics_module.f:                write(nrite,"(1x,120('-'))")
+hyper_dynamics_module.f:                write(nrite,'(1x,"TRR",i10,3i6)')nstep,home_bsn,newbsn
+hyper_dynamics_module.f:                write(nrite,'(1x,"BLK",2i10)')nstep,numdark
+hyper_dynamics_module.f:                write(nrite,"(1x,120('-'))")
+hyper_dynamics_module.f:              write(nrite,'(1x,"TRI",i10)')nstep
+hyper_dynamics_module.f:              write(nrite,"(1x,120('-'))")
+hyper_dynamics_module.f:                write(nrite,'(1x,"EQL",2i10)')nstep,nsteql
+hyper_dynamics_module.f:                write(nrite,"(1x,120('-'))")
+hyper_dynamics_module.f:                write(nrite,'(1x,"BLK",3i10)')nstep,numdark
+hyper_dynamics_module.f:                write(nrite,"(1x,120('-'))")
+hyper_dynamics_module.f:          if(idnode.eq.0)write(nrite,
+hyper_dynamics_module.f:            write(nrite,'(/,1x,"summary of NEB calculation",/)')
+hyper_dynamics_module.f:            write(nrite,'(1x,"path and energy for state",i4,
+hyper_dynamics_module.f:            write(nrite,'(1x,"convergence status :",l4)')safe
+hyper_dynamics_module.f:            write(nrite,'(1x,"obtained after ",i4," iterations",/)')pass
+hyper_dynamics_module.f:              write(nrite,'(6x,1p,2e14.6)')path(n),engneb(n)/hyp_units
+hyper_dynamics_module.f:            write(nrite,'(1x,"NEB",i10,3i6,1p,2e14.5)')
+hyper_dynamics_module.f:            write(nrite,"(1x,120('-'))")
+hyper_dynamics_module.f:     x    write(nrite,'(1x,"number of kinks detected ",i6)')nkinks
+hyper_dynamics_module.f:          write(nrite,'(1x,"MIN",i10,3i6,1p,3e14.5)')
+hyper_dynamics_module.f:          write(nrite,"(1x,120('-'))")
+hyper_dynamics_module.f:c$$$          write(nrite,'(1x,"MIN",i10,3i6,1p,3e14.5)')
+hyper_dynamics_module.f:c$$$          write(nrite,"(1x,120('-'))")
+hyper_dynamics_module.mod:2210 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+hyper_dynamics_module.mod:'nrite' 0 2210 'nsolwr' 0 2211 'nstats' 0 2212 'nstqmtk_p' 0 2213
+integrator_module.mod:1169 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+integrator_module.mod:'nrest' 0 1168 'nrite' 0 1169 'nsolwr' 0 1170 'nst_b1' 0 1171 'nst_h1' 0
+inversion_module.f:        write(nrite,"(/,1x,'number of inversion terms',
+inversion_module.f:        write(nrite,"(/,/,1x,'inversion potential details:',
+inversion_module.f:          if(idnode.eq.0)write(nrite,'(14x,a16,40a1)')
+inversion_module.f:            if(idnode.eq.0)write(nrite,*)record
+inversion_module.f:     x      write(nrite,"(27x,a4,4i10,1p,e12.4,0p,9f12.6)")
+inversion_module.mod:567 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+inversion_module.mod:0 566 'nrite' 0 567 'nsolwr' 0 568 'nstats' 0 569 'nswitch' 0 570 'ntable'
+lf_motion_module.mod:801 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+lf_motion_module.mod:798 'nread' 0 799 'nrest' 0 800 'nrite' 0 801 'nsolwr' 0 802 'nst_b1' 0
+lf_rotation1_module.f:          if(idnode.eq.0) write(nrite,*) ' make msgrp >=',igrp
+lf_rotation1_module.f:          if(idnode.eq.0) write(nrite,*) ' make msgrp >=',igrp
+lf_rotation1_module.f:          if(idnode.eq.0) write(nrite,*) ' make msgrp >=',igrp
+lf_rotation1_module.f:          if(idnode.eq.0) write(nrite,*) ' make msgrp >=',igrp
+lf_rotation1_module.f:          if(idnode.eq.0) write(nrite,*) ' make msgrp >=',igrp
+lf_rotation1_module.f:          if(idnode.eq.0) write(nrite,*) ' make msgrp >=',igrp
+lf_rotation1_module.f:          if(idnode.eq.0) write(nrite,*) ' make msgrp >=',igrp
+lf_rotation1_module.mod:865 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+lf_rotation1_module.mod:0 864 'nrite' 0 865 'nsolwr' 0 866 'nst_b1' 0 867 'nst_h1' 0 890 'nstats'
+lf_rotation2_module.f:          if(idnode.eq.0) write(nrite,*) ' make msgrp >=',igrp
+lf_rotation2_module.f:          if(idnode.eq.0) write(nrite,*) ' make msgrp >=',igrp
+lf_rotation2_module.f:          if(idnode.eq.0) write(nrite,*) ' make msgrp >=',igrp
+lf_rotation2_module.f:          if(idnode.eq.0) write(nrite,*) ' make msgrp >=',igrp
+lf_rotation2_module.f:          if(idnode.eq.0) write(nrite,*) ' make msgrp >=',igrp
+lf_rotation2_module.f:          if(idnode.eq.0) write(nrite,*) ' make msgrp >=',igrp
+lf_rotation2_module.f:          if(idnode.eq.0) write(nrite,*) ' make msgrp >=',igrp
+lf_rotation2_module.mod:929 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+lf_rotation2_module.mod:0 928 'nrite' 0 929 'nsolwr' 0 930 'nst_b1' 0 931 'nst_h1' 0 954 'nstats'
+metal_module.f:        write(nrite,"(/,/,1x,'number of specified metal ',
+metal_module.f:        write(nrite,"(/,/,16x,'atom 1  ','atom 2  ',3x,
+metal_module.f:          if(idnode.eq.0) write(nrite,*) message
+metal_module.f:     x      write(nrite,"(16x,2a8,2x,a4,3x,1p,9e13.5)") 
+metal_module.f:          write(nrite,"(/,/,
+metal_module.f:          write(nrite,
+metal_module.f:          write(nrite,
+metal_module.f:              write(nrite,"(25x,a8,1p,2e15.6)")unqatm(i),
+metal_module.f:     x      write(nrite,'(a)') ' **** '//atom1//' *** '//atom2//' ****'
+metal_module.f:          write(nrite,*) 'mxbuff must be >=',numpts+4,' in mettab'
+metal_module.f:        write(nrite,"(16x,2a8,2x,a4,3x,1p,4e13.5)") 
+metal_module.f:      if(idnode.eq.0)write(nrite,'(/,/,1x,a)')
+metal_module.mod:615 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+metal_module.mod:0 611 'nrdfdt' 0 612 'nread' 0 613 'nrest' 0 614 'nrite' 0 615 'nsolwr'
+neu_coul_module.mod:874 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+neu_coul_module.mod:0 870 'nrdfdt' 0 871 'nread' 0 872 'nrest' 0 873 'nrite' 0 874 'nsolwr'
+nlist_builders_module.f:          if(idnode.eq.0) write(nrite,*) 'mxxdf must be greater than ',
+nlist_builders_module.f:            write(nrite,*) ' mxlist must be at least  ',ibig
+nlist_builders_module.f:            write(nrite,*) ' mxlist is currently ',mxlist
+nlist_builders_module.f:            write(nrite,*) ' mxlist must be >=  ',ibig
+nlist_builders_module.f:            write(nrite,*) ' mxlist is currenty ',mxlist
+nlist_builders_module.f:            write(nrite,*) ' mxlist must be at least  ',ill
+nlist_builders_module.f:            write(nrite,*) ' mxlist is currently ',mxlist
+nlist_builders_module.f:            write(nrite,*)'mxxdf must be at least ',ibig
+nlist_builders_module.f:            write(nrite,*)'mxxdf is currently ',mxxdf
+nlist_builders_module.f:          if(idnode.eq.0) write(nrite,*) 'mxcell must be >= ',ncells
+nlist_builders_module.f:            write(nrite,*)'mxlist must be at least ',ibig
+nlist_builders_module.f:            write(nrite,*)'mxlist is currently ',mxlist
+nlist_builders_module.f:          if(idnode.eq.0) write(nrite,*) 'mxxdf must be greater than ',
+nlist_builders_module.f:            write(nrite,*) ' mxlist must be >=  ',ibig
+nlist_builders_module.f:            write(nrite,*) ' mxlist is currenty ',mxlist
+nlist_builders_module.f:            write(nrite,*) 'mxxdf must be at least ',ibig
+nlist_builders_module.f:            write(nrite,*) 'mxxdf is currently     ',mxxdf
+nlist_builders_module.mod:785 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+nlist_builders_module.mod:784 'nrite' 0 785 'nsolwr' 0 786 'nstats' 0 787 'nswitch' 0 788 'ntable'
+optimiser_module.mod:521 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+optimiser_module.mod:0 517 'nrdfdt' 0 518 'nread' 0 519 'nrest' 0 520 'nrite' 0 521 'nsolwr'
+pair_module.mod:200 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+pair_module.mod:'nrest' 0 199 'nrite' 0 200 'nsolwr' 0 201 'nstats' 0 202 'ntable' 0 203
+pass_tools.f:         if(idnode.eq.0) write(nrite,'(/,a,14x,i10)')
+pmf_module.f:        write(nrite,"(/,1x,' PMF      bondlength :',
+pmf_module.f:        write(nrite,
+pmf_module.f:              write(nrite,"(16x,i5,i10,f12.6)")
+pmf_module.f:              write(nrite,"(21x,i10,f12.6)")
+pmf_module.f:          if(idnode.eq.0) write(nrite,*) ' make msgrp >=',igrp
+pmf_module.mod:932 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+pmf_module.mod:'nrest' 0 931 'nrite' 0 932 'nsolwr' 0 933 'nst_b1' 0 934 'nst_h1' 0 957
+property_module.f:        write(nrite,
+property_module.f:        write(nrite,"(1x,120('-'),
+property_module.f:        write(nrite,'(1x,i8,1p,9e12.4,/,1x,0p,f8.3,1p,9e12.4,
+property_module.f:        write(nrite,"(/,1x,' r.m.s. ',1p,9e12.4,/,1x,'fluctn. ',
+property_module.f:        write(nrite,"(1x,120('-'))")
+property_module.f:        if(lbpd)write(nrite,"(/,/,1x,
+property_module.f:            write(nrite,"(/,/,12x,'Approximate 3D Diffusion',
+property_module.f:              write(nrite,'(12x,a8,1p,e13.4)') unqatm(i),dc
+property_module.f:          write(nrite,"(/,/,16x,'Average pressure tensor',
+property_module.f:            write(nrite,'(9x,1p,3e12.4,24x,3e12.4)')
+property_module.f:          write(nrite,'(/,12x,a,1p,e12.4)') 'trace/3. ',
+property_module.f:            write(nrite,"(/,/,17x,'Average cell vectors',
+property_module.f:              write(nrite,'(3f20.10,9x,1p,3e12.4)')
+property_module.f:            write(nrite,"(/,/,12x,
+property_module.f:     x          write(nrite,'(10x,i10,2f20.10)') i,sumval(i),ssqval(i)
+property_module.f:        write(nrite,"(/,/,1x,'sample of final configuration',/)")
+property_module.f:        write(nrite,"(6x,'i',7x,'x(i)',8x,'y(i)',8x,'z(i)',
+property_module.f:          write(nrite,"(1x,i6,1p,3e12.4,3e12.4,3e12.4)") 
+property_module.f:      if(idnode.eq.0) write(nrite,
+property_module.f:              write(nrite,
+property_module.f:     x             write(nrite,"(f10.4,1p,2e14.6)")rrr,gofr,sum
+property_module.f:      if(idnode.eq.0) write(nrite,
+property_module.f:             write(nrite,
+property_module.f:              write(nrite,"(f10.4,1p,2e14.6)") rrr,rho,sum
+property_module.mod:541 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+property_module.mod:0 537 'nrdfdt' 0 538 'nread' 0 539 'nrest' 0 540 'nrite' 0 541 'nsolwr'
+rigid_body_module.f:        write(nrite,"(/,1x,'number of rigid units    ',
+rigid_body_module.f:        write(nrite,"(/,' rigid body details:',/,/,21x,
+rigid_body_module.f:     x    write(nrite,"(21x,10i10,100(/,21x,10i10))")
+rigid_body_module.mod:394 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+rigid_body_module.mod:'nrite' 0 394 'nsolwr' 0 395 'nstats' 0 396 'nswitch' 0 397 'ntable' 0
+setup_module.f:      integer, parameter :: nrite=6
+setup_module.f:      write(nrite,'(/,/,1x,a,i5)') 
+setup_module.f:        write(nrite,'(/,/,1x,a)')
+setup_module.f:        write(nrite,'(/,/,1x,a)')
+setup_module.f:        write(nrite,'(/,/,1x,a)')
+setup_module.f:        write(nrite,'(/,/,1x,a)')
+setup_module.f:        close (nrite)
+setup_module.mod:190 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+setup_module.mod:185 'npro' 0 186 'nrdfdt' 0 187 'nread' 0 188 'nrest' 0 189 'nrite' 0
+shake_module.f:        write(nrite,"(/,1x,'number of bond constraints',
+shake_module.f:        write(nrite,"(/,/,1x,'constraint bond details:',
+shake_module.f:          if(idnode.eq.0) write(nrite,'(14x,a16,40a1)')
+shake_module.f:     x      write(nrite,"(21x,2i10,f12.6)")
+shake_module.mod:373 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+shake_module.mod:0 372 'nrite' 0 373 'nsolwr' 0 374 'nstats' 0 375 'nswitch' 0 376 'ntable'
+site_module.f:        write(nrite,"(/,1x,'number of atoms/sites',
+site_module.f:     x    write(nrite,"(/,/,1x,'atomic characteristics:',
+site_module.f:     x    write(nrite,"(/,/,1x,'atomic characteristics:',/
+site_module.f:              write(nrite,
+site_module.f:              write(nrite,
+site_module.mod:219 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+site_module.mod:214 'npro' 0 215 'nrdfdt' 0 216 'nread' 0 217 'nrest' 0 218 'nrite' 0
+solvation_module.mod:331 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+solvation_module.mod:'nrite' 0 331 'nsolwr' 0 332 'nstats' 0 333 'nswitch' 0 334 'ntable' 0
+spme_module.mod:379 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+spme_module.mod:'nread' 0 377 'nrest' 0 378 'nrite' 0 379 'nsolwr' 0 380 'nstats' 0 381
+temp_scalers_module.mod:635 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+temp_scalers_module.mod:0 634 'nrite' 0 635 'nsolwr' 0 636 'nstats' 0 637 'nswitch' 0 638 'ntable'
+tersoff_module.f:        write(nrite,"(/,/,1x,'number of specified tersoff ',
+tersoff_module.f:        write(nrite,"(/,/,16x,'atom    ',3x,' key',30x,
+tersoff_module.f:          if(idnode.eq.0) write(nrite,*) message
+tersoff_module.f:          write(nrite,"(16x,a8,2x,a4,2x,1p,5e13.5)") 
+tersoff_module.f:          write(nrite,"(32x,1p,5e13.5)")(parpot(j),j=6,mxpter)
+tersoff_module.f:        write(nrite,"(/,/,1x,'number of tersoff ',
+tersoff_module.f:        write(nrite,"(/,/,16x,'atom    ','atom    ',10x,
+tersoff_module.f:        if(idnode.eq.0)write(nrite,"(16x,a8,a8,1p,2e13.5)") 
+tersoff_module.f:          write(nrite,'(a,i6)')
+tersoff_module.f:          write(nrite,'(a,i6)')
+tersoff_module.mod:369 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+tersoff_module.mod:'nrite' 0 369 'nsolwr' 0 370 'nstats' 0 371 'ntable' 0 372 'ntrk' 0 373
+tether_module.f:        write(nrite,"(/,1x,'number of tethered atoms ',
+tether_module.f:        write(nrite,"(/,' tethered atom details:',/,/,
+tether_module.f:          if(idnode.eq.0)write(nrite,'(14x,a16,40a1)')
+tether_module.f:            if(idnode.eq.0)write(nrite,*)message
+tether_module.f:     x      write(nrite,"(27x,a4,i10,1p,9e12.4)")
+tether_module.mod:358 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+tether_module.mod:'nrdfdt' 0 355 'nread' 0 356 'nrest' 0 357 'nrite' 0 358 'nsolwr' 0 359
+three_body_module.f:        write(nrite,"(/,/,1x,'number of specified three ',
+three_body_module.f:        write(nrite,"(/,/,16x,'atom 1  ','atom 2  ','atom 3  ',
+three_body_module.f:          if(idnode.eq.0) write(nrite,*) message
+three_body_module.f:     x    write(nrite,"(16x,3a8,4x,a4,1x,1p,9e13.5)") 
+three_body_module.f:          write(nrite,'(a,i6)')
+three_body_module.f:          write(nrite,'(a,i6)')
+three_body_module.mod:469 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+three_body_module.mod:0 465 'nrdfdt' 0 466 'nread' 0 467 'nrest' 0 468 'nrite' 0 469 'nsolwr'
+utility_module.f:        if(idnode.eq.0)write(nrite,'(a,/,a)')
+utility_module.f:      if(ktim.gt.0.and.idnode.eq.0) write(nrite,10)time
+vdw_module.f:        write(nrite,"(/,/,1x,'number of specified pair ',
+vdw_module.f:        write(nrite,"(/,/,16x,'atom 1  ','atom 2  ',3x,
+vdw_module.f:          if(idnode.eq.0) write(nrite,*) message
+vdw_module.f:     x    write(nrite,"(16x,2a8,2x,a4,3x,1p,9e13.5)") 
+vdw_module.f:          write(nrite,"('expected radial increment : ',1p,e15.7,/,
+vdw_module.f:        if(abs(1.d0-(delpot/dlrpot)).gt.1d-7) write(nrite,
+vdw_module.f:     x        write(nrite,'(a)') '****',atom1,'***',atom2,'****'
+vdw_module.f:              write(nrite,*) 'mxbuff must be >=',ngrid,' in fortab'
+vdw_module.f:      if(idnode.eq.0)write(nrite,'(/,/,1x,a)')
+vdw_module.f:        write(nrite,
+vdw_module.f:     x    write(nrite,
+vdw_module.mod:511 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+vdw_module.mod:0 507 'nrdfdt' 0 508 'nread' 0 509 'nrest' 0 510 'nrite' 0 511 'nsolwr'
+vv_motion_module.mod:802 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+vv_motion_module.mod:'nrdfdt' 0 799 'nread' 0 800 'nrest' 0 801 'nrite' 0 802 'nsolwr' 0 803
+vv_rotation1_module.f:        if(idnode.eq.0) write(nrite,*) ' make msgrp >=',igrp
+vv_rotation1_module.f:        if(idnode.eq.0) write(nrite,*) ' make msgrp >=',igrp
+vv_rotation1_module.f:        if(idnode.eq.0) write(nrite,*) ' make msgrp >=',igrp
+vv_rotation1_module.f:          if(idnode.eq.0) write(nrite,*) ' make msgrp >=',igrp
+vv_rotation1_module.f:          if(idnode.eq.0) write(nrite,*) ' make msgrp >=',igrp
+vv_rotation1_module.f:          if(idnode.eq.0) write(nrite,*) ' make msgrp >=',igrp
+vv_rotation1_module.f:          if(idnode.eq.0) write(nrite,*) ' make msgrp >=',igrp
+vv_rotation1_module.mod:875 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+vv_rotation1_module.mod:'nread' 0 873 'nrest' 0 874 'nrite' 0 875 'nsolwr' 0 876 'nstats' 0 877
+vv_rotation2_module.f:          if(idnode.eq.0) write(nrite,*) ' make msgrp >=',igrp
+vv_rotation2_module.f:          if(idnode.eq.0) write(nrite,*) ' make msgrp >=',igrp
+vv_rotation2_module.f:          if(idnode.eq.0) write(nrite,*) ' make msgrp >=',igrp
+vv_rotation2_module.f:          if(idnode.eq.0) write(nrite,*) ' make msgrp >=',igrp
+vv_rotation2_module.f:          if(idnode.eq.0) write(nrite,*) ' make msgrp >=',igrp
+vv_rotation2_module.f:          if(idnode.eq.0) write(nrite,*) ' make msgrp >=',igrp
+vv_rotation2_module.f:          if(idnode.eq.0) write(nrite,*) ' make msgrp >=',igrp
+vv_rotation2_module.mod:936 'nrite' 'setup_module' 'nrite' 1 ((PARAMETER UNKNOWN-INTENT
+vv_rotation2_module.mod:'nptvv_h1' 0 904 'nrdfdt' 0 933 'nread' 0 934 'nrest' 0 935 'nrite' 0

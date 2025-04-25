@@ -1,0 +1,326 @@
+AGREEMENT NO. DL/L/           /       
+(to be quoted on all correspondence)
+
+                DL_POLY GROUP ACADEMIC LICENCE
+
+THIS AGREEMENT is made on the _________________ day of ____________
+two thousand and ______ between The Council for the Central Laboratory
+of the Research Councils, Daresbury Laboratory, Daresbury, Warrington,
+WA4 4AD, (hereinafter referred to as ``the Council'') and
+
+
+                ______________________________________
+
+                at                                                      
+
+                ______________________________________
+
+                ______________________________________
+
+                ______________________________________
+
+                ______________________________________
+
+                ______________________________________
+
+                ______________________________________
+
+
+(hereinafter referred to as ``the Licensee'').
+
+1.0 Scope
+---------
+
+The Council wishes to grant, and the Licensee wishes to obtain from
+the Council, a non-exclusive, non-transferable, royalty-free licence
+of DL POLY and amendments thereof on the terms and conditions set
+forth in this Agreement.
+
+2.0 Background
+--------------
+
+The Council has developed and is the owner of the intellectual
+property rights in the ``DL_POLY System'' which consists of certain
+computer programs, and related software called the ``DL_POLY'' System.
+``DL_POLY System'', the magnetic medium on which ``DL_POLY System''
+may be supplied, and any related documentation are collectively
+referred to as ``the Software''. 
+
+3.0 Grant of Licence
+--------------------
+
+3.1 The Licensee shall have the right to use the Software for the
+purposes of research.
+
+3.2 Use by or disclosure to non-academic collaborators of the Licensee
+is specifically excluded except by prior separate written agreement of
+the Council.
+
+3.3 The Licensee shall have the right to use the Software solely in
+the single system (hereinafter referred to as ``the System'')
+identified hereinunder :
+
+CPU Manufacturer
+
+                ______________________________________
+
+CPU Model
+
+                ______________________________________
+
+Operating System
+
+                ______________________________________
+
+at the following address only :
+
+                ______________________________________
+
+                ______________________________________
+
+                ______________________________________
+
+                ______________________________________
+
+                ______________________________________
+
+
+3.4 The Licensee shall not sell, give, disclose, lend, transfer or
+otherwise distribute the Software to any third parties and shall
+immediately refer any requests for copies of the Software to the
+Council.
+
+3.5 The Licensee may, with the prior written consent of the Council,
+permit a third party to use the Software on the System under the
+supervision of the Licensee.
+
+3.6 The Licensee may make a reasonable number of copies of the
+Software solely for backup and maintenance.  Any such additional
+copies of the Software shall be subject to the terms and conditions of
+this Agreement and shall be owned by the Council.  All such additional
+copies of the Software shall be delivered to the Council by the
+Licensee if so directed by the Council, upon termination of this
+Agreement.
+
+3.7 The Licensee shall not accept or use any version of the Software
+other than the Software delivered to the Licensee by the Council and
+shall not modify or incorporate the Software into any other program or
+system without the prior written permission of the Council.
+
+4.0 Superintendence
+-------------------
+
+4.1 The Head of the Group wishing to obtain the licence shall nominate
+a person who shall have overall responsibility for ensuring that the
+terms and conditions of this licence are complied with.  The nominee
+shall be referred to as the "Software Manager".  If the software
+manager leaves the Group, the Group Head shall nominate a replacement
+and inform the Council in writing.
+
+4.2 The Software Manager shall act as the sole distributor of the
+Software in the Group and shall not distribute the Software outside
+the Group but shall immediately refer any requests for copies of the
+Software to the Council.
+
+4.3 The Software Manager shall maintain an up-to-date version of the
+code including documentation and such bug fixes that are broadcast
+occasionally and shall inform Group members of the bug fixes as they
+appear.
+
+4.4 The Software Manager shall maintain a record of the names and
+e-mail addresses of all Group members using the Software and shall
+provide the Council with this information so that they may contact the
+members directly and to allow the Council to identify legitimate
+members requesting assistance.
+
+4.5 The Software Manager shall assist members of the Group with the
+implementation of the Software such as compiler options, MPI
+libraries, code optimisation etc. which are not the responsibility of
+the Council.
+
+4.6 The Software Manager shall report any difficulties encountered in
+the use of the Software by any member to the Council.
+
+4.7 Any member leaving the Group shall not take a copy of the Software
+but shall apply for a licence from the Council.
+
+4.8 The licence may only be signed by the Head of the Group.
+
+5.0 Warranties and Guarantees
+-----------------------------
+
+5.1 The Council warrants that the Software will conform substantially
+with its functional specification.  Otherwise, the Software is
+supplied ``as is'' without any warranty, express or implied,
+including, but not limited to its merchantability or fitness for a
+particular purpose.  The Council does not guarantee that the functions
+of the Software will be uninterrupted or completely error free.  The
+Council shall use all reasonable endeavours to ensure the Software
+contains no viruses at the time of delivery.  This Agreement confers
+no additional responsibility or obligation upon the Council.
+
+5.2 The Licensee shall report any difficulties encountered in the use
+of the Software to the Council.
+
+6.0 Liability
+-------------
+
+6.1 Neither party excludes or limits its liability to the other party
+for death or personal injury.
+
+6.2 The Council shall not be liable to the Licensee for any direct
+damages arising out of the Licensee's use of the Software, or for any
+indirect, special or consequential damages, such as loss of profits or
+inability to use the Software.
+
+6.3 The Licensee shall indemnify and hold the Council harmless against
+all damages, liability and costs of defending against any third party
+claim, or threat of claim, against the Council arising out of the
+Licensee's use of the Software, as delivered to the Licensee.
+
+7.0 Confidentiality
+-------------------
+
+7.1 The Licensee shall take all reasonable measures to keep
+confidential information which is received from the Council under this
+Agreement and which the Council specifies to be confidential at the
+time of disclosure or which may come to the Licensee's knowledge or is
+disclosed to it as a result of visiting the Council's premises.
+
+7.2 The Licensee shall not pass on or disclose to non-academic
+collaborators any information which is received from the Council under
+this Agreement and which the Council specifies to be confidential at
+the time of disclosure or which may come to the Licensee's knowledge
+or is disclosed to it as a result of visiting the Council's premises.
+
+7.3 This undertaking shall not apply to information which:
+
+(a)is in the public domain at the time of disclosure, or which enters
+the public domain through no fault of the Licensee; or 
+
+(b)is in the lawful possession of the Licensee at the time of
+disclosure by the Council, such possession being documented; and 
+
+(c) the Licensee lawfully receives from a third party who is in lawful
+possession thereof and under no obligation of confidence to the
+Council.  
+
+7.4 The obligations set forth in this Clause shall survive
+the variation, termination or expiration of this Agreement.
+
+8.0 Ownership
+-------------
+
+8.1 The Software is the property of the Council.
+
+9.0 Acknowledgements
+--------------------
+
+9.1 If the Software is used to obtain a result and that result is
+published, the Licensee shall acknowledge its use in an appropriate
+citation.  An appropriate citation reads :
+
+``DL_POLY is a package of molecular simulation routines written by
+W.Smith and T.R.Forester, copyright The Council for the Central
+Laboratory of the Research Councils, Daresbury Laboratory at
+Daresbury, Nr. Warrington (1996).''
+
+9.2 Additional citations as specified in the manual (``The DL_POLY
+Manual'') may be required depending on which modules are used.
+
+10.0 Amendments
+---------------
+
+10.1 The terms and conditions of this Agreement may only be amended
+formally, in writing.  No oral agreement shall be binding on either
+party to the Agreement.
+
+11.0 Duration and Termination
+-----------------------------
+
+11.1 The term of this Agreement shall be three (3) years from
+the date the Agreement is signed and dated by the Licensee.
+
+11.2 Upon expiration of the Agreement, the licence granted herein
+shall automatically terminate, whereupon all materials delivered or
+otherwise provided to the Licensee shall be returned to the Council,
+if so directed.
+
+11.3 The Council reserves the right to terminate the Agreement at any
+time, without giving reasons, whereupon the provisions of Clause 11.2
+will apply.
+
+12.0 Transfer and Assignment
+----------------------------
+
+12.1 The Licensee shall not assign or transfer this Agreement, or any
+rights or obligations hereunder without obtaining the prior written
+consent of the Council, which consent shall not be unreasonably
+withheld.
+
+13.0 Law
+--------
+
+13.1 This Agreement shall be considered as an Agreement made in
+England, subject to English Law, and the jurisdiction of the English
+Courts.
+
+14.0 Further Information
+------------------------
+
+Further information can be obtained from the Council:
+
+Technical Enquiries:          Contractual Enquiries:
+
+Dr W Smith		      Mrs HM Hamlett             
+Daresbury Laboratory	      Daresbury Laboratory       
+Daresbury		      Daresbury                  
+Warrington		      Warrington                 
+Cheshire WA4 4AD	      Cheshire WA4 4AD           
+United Kingdom		      United Kingdom             
+Tel: 01925 603257	      Tel: 01925 603329          
+Fax. 01925 60363	      Fax. 01925 603194          
+Email: W.Smith@dl.ac.uk	      Email: H.M.Hamlett@dl.ac.uk
+
+                             
+IN WITNESS WHEREOF, the Council and the Licensee have duly executed
+this Agreement as of the day and year first written above. 
+
+Signed 
+
+                ______________________________________
+
+Date            ______________________________________
+
+
+on behalf of The Council for the Central Laboratory.
+
+Signed
+
+                ______________________________________
+
+                ______________________________________
+
+                ______________________________________
+
+                ______________________________________
+
+                ______________________________________
+
+Date            ______________________________________
+
+
+on behalf of the Licencee.
+
+
+Footnote
+--------
+
+Applicants are requested to provide a RELIABLE E-mail address to
+facilitate the transfer of the source code and to enable rapid
+communication of any future software related information.
+
+E-mail:                                         
+
+                ______________________________________
+

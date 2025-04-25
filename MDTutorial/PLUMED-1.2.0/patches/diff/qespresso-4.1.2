@@ -1,0 +1,487 @@
+patch -c -l -b -F 3 --suffix=.preplumed "./PW/forces.f90" << \EOF_EOF
+*** ./PW/forces.f90.preplumed	2009-07-09 18:07:21.000000000 +0200
+--- ./PW/forces.f90	2010-03-30 17:30:27.000000000 +0200
+***************
+*** 25,31 ****
+    !
+    !
+    USE kinds,         ONLY : DP
+!   USE io_global,     ONLY : stdout
+    USE cell_base,     ONLY : at, bg, alat, omega  
+    USE ions_base,     ONLY : nat, nsp, ityp, tau, zv, amass, extfor, compute_eextfor
+    USE gvect,         ONLY : ngm, gstart, nr1, nr2, nr3, nrx1, nrx2, nrx3, &
+--- 25,31 ----
+    !
+    !
+    USE kinds,         ONLY : DP
+!   USE io_global,     ONLY : stdout,ionode
+    USE cell_base,     ONLY : at, bg, alat, omega  
+    USE ions_base,     ONLY : nat, nsp, ityp, tau, zv, amass, extfor, compute_eextfor
+    USE gvect,         ONLY : ngm, gstart, nr1, nr2, nr3, nrx1, nrx2, nrx3, &
+***************
+*** 38,44 ****
+    USE ions_base,     ONLY : if_pos
+    USE ldaU,          ONLY : lda_plus_u
+    USE extfield,      ONLY : tefield, forcefield
+!   USE control_flags, ONLY : gamma_only, remove_rigid_rot, lbfgs, textfor, llondon
+  ! DCC
+    USE ee_mod,        ONLY : vcomp, do_comp, ecomp, which_compensation
+    USE bp,            ONLY : lelfield, forces_bp_efield, gdir, &
+--- 38,44 ----
+    USE ions_base,     ONLY : if_pos
+    USE ldaU,          ONLY : lda_plus_u
+    USE extfield,      ONLY : tefield, forcefield
+!   USE control_flags, ONLY : gamma_only, remove_rigid_rot, lbfgs, textfor, llondon, istep, use_plumed
+  ! DCC
+    USE ee_mod,        ONLY : vcomp, do_comp, ecomp, which_compensation
+    USE bp,            ONLY : lelfield, forces_bp_efield, gdir, &
+***************
+*** 63,68 ****
+--- 63,70 ----
+  
+    REAL(DP) :: sumfor, sumscf, sum_mm
+    REAL(DP),PARAMETER :: eps = 1.e-12_dp
++   REAL(DP) :: at_meta(3,3)
++   REAL(DP), ALLOCATABLE :: tau_meta(:,:)
+    INTEGER  :: ipol, na
+      ! counter on polarization
+      ! counter on atoms
+***************
+*** 202,207 ****
+--- 204,222 ----
+       CALL remove_tot_torque( nat, tau, amass(ityp(:)), force  )
+    !
+    IF( textfor ) force(:,:) = force(:,:) + extfor(:,:)
++ 
++   IF(use_plumed) then
++ !     IF(ionode) call meta_force_calculation(alat,at,istep,tau(1,1),force(1,1))
++     IF(ionode)THEN
++       at_meta=alat*at;
++       allocate(tau_meta(3,nat))
++       tau_meta=alat*tau
++       call meta_force_calculation(at_meta,istep,tau_meta(1,1),0,0,force(1,1),0,0,0)
++       deallocate(tau_meta)
++     ENDIF
++ ! PLUMED forces are computed on ionode only
++ ! they are broadcast somewhere else
++   END IF
+    !
+    ! ... write on output the forces
+    !
+EOF_EOF
+patch -c -l -b -F 3 --suffix=.preplumed "./PW/input.f90" << \EOF_EOF
+*** ./PW/input.f90.preplumed	2009-09-07 12:17:22.000000000 +0200
+--- ./PW/input.f90	2010-03-30 17:30:27.000000000 +0200
+***************
+*** 168,173 ****
+--- 168,174 ----
+                              modenum_          => modenum, &
+                              lkpoint_dir_      => lkpoint_dir, &
+                              tqr_              => tqr, &
++                             use_plumed_       => use_plumed, &
+                              io_level, ethr, lscf, lbfgs, lmd, lpath, lneb,   &
+                              lsmd, lphonon, ldamped, lbands, lmetadyn, llang, &
+                              lconstrain, lcoarsegrained, restart, twfcollect, &
+***************
+*** 222,228 ****
+                                 wfcdir, prefix, etot_conv_thr, forc_conv_thr, &
+                                 pseudo_dir, disk_io, tefield, dipfield, lberry, &
+                                 gdir, nppstr, wf_collect,lelfield, efield, &
+!                                nberrycyc, lkpoint_dir, efield_cart
+    !
+    ! ... SYSTEM namelist
+    !
+--- 223,229 ----
+                                 wfcdir, prefix, etot_conv_thr, forc_conv_thr, &
+                                 pseudo_dir, disk_io, tefield, dipfield, lberry, &
+                                 gdir, nppstr, wf_collect,lelfield, efield, &
+!                                nberrycyc, lkpoint_dir, efield_cart, use_plumed
+    !
+    ! ... SYSTEM namelist
+    !
+***************
+*** 1260,1265 ****
+--- 1261,1267 ----
+    nelec_   = nelec
+    nelup_   = nelup
+    neldw_   = neldw
++   use_plumed_ = use_plumed
+    !
+    tot_charge_        = tot_charge
+    tot_magnetization_ = tot_magnetization
+EOF_EOF
+patch -c -l -b -F 3 --suffix=.preplumed "./PW/pwscf.f90" << \EOF_EOF
+*** ./PW/pwscf.f90.preplumed	2009-03-25 16:11:41.000000000 +0100
+--- ./PW/pwscf.f90	2010-03-30 17:30:27.000000000 +0200
+***************
+*** 16,36 ****
+    USE global_version,   ONLY : version_number
+    USE noncollin_module, ONLY : noncolin
+    USE control_flags,    ONLY : conv_elec, conv_ions, lpath, lmetadyn, &
+!                                gamma_only
+!   USE io_files,         ONLY : nd_nmbr
+!   USE ions_base,        ONLY : tau
+    USE path_variables,   ONLY : conv_path
+    USE check_stop,       ONLY : check_stop_init
+    USE path_base,        ONLY : initialize_path, search_mep
+    USE metadyn_base,     ONLY : metadyn_init
+    USE path_io_routines, ONLY : io_path_start, io_path_stop, path_summary
+    USE mp_global,        ONLY : nimage
+    !
+    IMPLICIT NONE
+    !
+    ! ... local variables
+    !
+    CHARACTER (LEN=9) :: code = 'PWSCF'
+    !
+    ! ... Intel compilers v .ge.8 allocate a lot of stack space
+    ! ... Stack limit is often small, thus causing SIGSEGV and crash
+--- 16,40 ----
+    USE global_version,   ONLY : version_number
+    USE noncollin_module, ONLY : noncolin
+    USE control_flags,    ONLY : conv_elec, conv_ions, lpath, lmetadyn, &
+!                                gamma_only,use_plumed
+!   USE io_files,         ONLY : nd_nmbr,outdir
+!   USE ions_base,        ONLY : tau,amass,nat,ityp
+    USE path_variables,   ONLY : conv_path
+    USE check_stop,       ONLY : check_stop_init
+    USE path_base,        ONLY : initialize_path, search_mep
+    USE metadyn_base,     ONLY : metadyn_init
+    USE path_io_routines, ONLY : io_path_start, io_path_stop, path_summary
+    USE mp_global,        ONLY : nimage
++   USE input_parameters,  ONLY : dt
++   USE kinds,            ONLY : DP
+    !
+    IMPLICIT NONE
+    !
+    ! ... local variables
+    !
+    CHARACTER (LEN=9) :: code = 'PWSCF'
++   REAL(DP), ALLOCATABLE :: mass(:),charge(:)
++   INTEGER  :: na
+    !
+    ! ... Intel compilers v .ge.8 allocate a lot of stack space
+    ! ... Stack limit is often small, thus causing SIGSEGV and crash
+***************
+*** 69,74 ****
+--- 73,94 ----
+      WRITE( UNIT = stdout, &
+           & FMT = '(/,5X,"gamma-point specific algorithms are used",/)' )
+    !
++   IF ( use_plumed .and. ionode ) THEN
++ 
++     ALLOCATE(mass(nat),charge(nat))
++     
++     DO na = 1, nat
++     !
++     mass(na)   = amass( ityp(na) )
++     charge(na) = amass( ityp(na) )
++     !
++     END DO
++     
++     CALL init_metadyn(nat,dt,mass,charge,1,1.0D0,trim(outdir)//"plumed.dat"//char(0));
++ 
++     DEALLOCATE(mass,charge)
++   ENDIF
++ 
+    IF ( lpath ) THEN
+       !
+       CALL io_path_start()
+EOF_EOF
+patch -c -l -b -F 3 --suffix=.preplumed "./CPV/input.f90" << \EOF_EOF
+*** ./CPV/input.f90.preplumed	2009-06-23 10:47:25.000000000 +0200
+--- ./CPV/input.f90	2010-03-30 17:30:27.000000000 +0200
+***************
+*** 199,205 ****
+       USE io_global,     ONLY : stdout
+       USE autopilot,     ONLY : auto_check
+       USE autopilot,     ONLY : restart_p
+!      USE control_flags, ONLY : lcoarsegrained, ldamped, lmetadyn
+       USE control_flags, ONLY : program_name
+       USE control_flags, ONLY : ndw_        => ndw, &
+                                 ndr_        => ndr, &
+--- 199,206 ----
+       USE io_global,     ONLY : stdout
+       USE autopilot,     ONLY : auto_check
+       USE autopilot,     ONLY : restart_p
+!      USE control_flags, ONLY : lcoarsegrained, ldamped, lmetadyn, &
+!                                use_plumed_ => use_plumed
+       USE control_flags, ONLY : program_name
+       USE control_flags, ONLY : ndw_        => ndw, &
+                                 ndr_        => ndr, &
+***************
+*** 302,308 ****
+          orthogonalization, electron_velocities, nat, if_pos, phase_space,      &
+          tefield, epol, efield, tefield2, epol2, efield2, remove_rigid_rot,     &
+          iesr_inp, vhrmax_inp, vhrmin_inp, tvhmean_inp, vhasse_inp, saverho,    &
+!         ortho_para, rd_for
+       !
+       IMPLICIT NONE
+       !
+--- 303,309 ----
+          orthogonalization, electron_velocities, nat, if_pos, phase_space,      &
+          tefield, epol, efield, tefield2, epol2, efield2, remove_rigid_rot,     &
+          iesr_inp, vhrmax_inp, vhrmin_inp, tvhmean_inp, vhasse_inp, saverho,    &
+!         ortho_para, rd_for,use_plumed
+       !
+       IMPLICIT NONE
+       !
+***************
+*** 310,315 ****
+--- 311,317 ----
+       IF ( .NOT. has_been_read ) &
+          CALL errore( 'iosys ', 'input file has not been read yet!', 1 )
+       !
++      use_plumed_    = use_plumed
+       ndr_           = ndr
+       ndw_           = ndw
+       iprint_        = iprint
+EOF_EOF
+patch -c -l -b -F 3 --suffix=.preplumed "./CPV/cpr.f90" << \EOF_EOF
+*** ./CPV/cpr.f90.preplumed	2009-11-20 10:37:31.000000000 +0100
+--- ./CPV/cpr.f90	2010-04-09 10:59:15.000000000 +0200
+***************
+*** 20,26 ****
+                                         tortho, tnosee, tnosep, trane, tranp,   &
+                                         tsdp, tcp, tcap, ampre, amprp, tnoseh,  &
+                                         tolp, ortho_eps, ortho_max, printwfc,   &
+!                                        tprojwfc, textfor
+    USE core,                     ONLY : nlcc_any, rhoc
+    USE uspp_param,               ONLY : nhm, nh
+    USE cvan,                     ONLY : nvb, ish
+--- 20,26 ----
+                                         tortho, tnosee, tnosep, trane, tranp,   &
+                                         tsdp, tcp, tcap, ampre, amprp, tnoseh,  &
+                                         tolp, ortho_eps, ortho_max, printwfc,   &
+!                                        tprojwfc, textfor, use_plumed
+    USE core,                     ONLY : nlcc_any, rhoc
+    USE uspp_param,               ONLY : nhm, nh
+    USE cvan,                     ONLY : nvb, ish
+***************
+*** 137,142 ****
+--- 137,146 ----
+    REAL(DP), INTENT(OUT) :: fion_out(3,nat)
+    REAL(DP), INTENT(OUT) :: etot_out
+    !
++   REAL(DP) :: at(3,3) 
++   REAL(DP), ALLOCATABLE :: tau_meta(:,:) 
++   INTEGER  :: istep
++   !
+    ! ... control variables
+    !
+    LOGICAL :: tfirst, tlast, tstop, tconv
+***************
+*** 417,422 ****
+--- 421,448 ----
+             !
+          END IF
+          !
++         IF(use_plumed) then
++           IF ( ionode ) THEN
++             at(:,1)=a1(:)
++             at(:,2)=a2(:)
++             at(:,3)=a3(:)
++ 
++             allocate(tau_meta(3,nat))
++             tau_meta(:,:) = 0.0D0
++ 
++             call s_to_r(taus,tau_meta,na,nsp,h)
++ 
++             istep = nfi
++ 
++             call meta_force_calculation(at,istep,tau_meta(1,1),0,0,fion(1,1),0,0,0)
++ 
++             deallocate(tau_meta)
++           END IF
++ 
++           CALL mp_bcast( fion, ionode_id, intra_image_comm )
++ 
++         END IF
++         !
+          CALL ions_move( tausp, taus, tausm, iforce, pmass, fion, ainv, &
+                          delt, na, nsp, fricp, hgamma, vels, tsdp, tnosep, &
+                          fionm, vnhp, velsp, velsm, nhpcl, nhpdim, atm2nhp )
+EOF_EOF
+patch -c -l -b -F 3 --suffix=.preplumed "./CPV/cprstart.f90" << \EOF_EOF
+*** ./CPV/cprstart.f90.preplumed	2009-03-25 16:11:40.000000000 +0100
+--- ./CPV/cprstart.f90	2010-03-30 17:30:27.000000000 +0200
+***************
+*** 20,33 ****
+    !----------------------------------------------------------------------------
+    !
+    USE input,         ONLY : read_input_file, iosys_pseudo, iosys
+!   USE io_global,     ONLY : io_global_start, io_global_getmeta
+    USE mp_global,     ONLY : mp_global_start, init_pool
+    USE mp_global,     ONLY: me_image,root_image
+    USE mp,            ONLY : mp_end, mp_start, mp_env, mp_bcast
+    USE control_flags, ONLY : lneb, lsmd, lmetadyn, program_name
+!   USE control_flags, ONLY : use_task_groups, ortho_para
+    USE environment,   ONLY : environment_start
+    USE check_stop,    ONLY : check_stop_init
+    !
+    IMPLICIT NONE
+    !
+--- 20,38 ----
+    !----------------------------------------------------------------------------
+    !
+    USE input,         ONLY : read_input_file, iosys_pseudo, iosys
+!   USE io_global,     ONLY : io_global_start, io_global_getmeta, ionode
+    USE mp_global,     ONLY : mp_global_start, init_pool
+    USE mp_global,     ONLY: me_image,root_image
+    USE mp,            ONLY : mp_end, mp_start, mp_env, mp_bcast
+    USE control_flags, ONLY : lneb, lsmd, lmetadyn, program_name
+!   USE control_flags, ONLY : use_task_groups, ortho_para,use_plumed
+!   USE kinds,         ONLY : DP
+    USE environment,   ONLY : environment_start
+    USE check_stop,    ONLY : check_stop_init
++   USE io_files,      ONLY : outdir
++   USE ions_base,     ONLY : taui,amass,nat,ityp
++   USE time_step,     ONLY : delt
++ 
+    !
+    IMPLICIT NONE
+    !
+***************
+*** 35,40 ****
+--- 40,49 ----
+    INTEGER            :: nimage, ntask_groups, nproc_ortho
+    LOGICAL            :: meta_ionode
+    INTEGER, PARAMETER :: root = 0
++ 
++   REAL(DP), ALLOCATABLE :: mass(:),charge(:)
++   INTEGER  :: na
++ 
+    !
+    ! ... program starts here
+    !
+***************
+*** 126,131 ****
+--- 135,157 ----
+    ! ... copy-in input parameters from input_parameter module
+    !
+    CALL iosys()
++ 
++   IF ( use_plumed .and. ionode) THEN
++ 
++     ALLOCATE(mass(nat),charge(nat))
++ 
++     DO na = 1, nat
++     !
++     mass(na)   = amass( ityp(na) )
++     charge(na) = amass( ityp(na) )
++     !
++     END DO
++ 
++     CALL init_metadyn(nat,delt,mass,charge,1,1.0D0,trim(outdir)//"plumed.dat"//char(0));
++ 
++     DEALLOCATE(mass,charge)
++   ENDIF
++ 
+    !
+    CALL check_stop_init()
+    !
+EOF_EOF
+patch -c -l -b -F 3 --suffix=.preplumed "./Modules/read_namelists.f90" << \EOF_EOF
+*** ./Modules/read_namelists.f90.preplumed	2009-06-27 22:45:51.000000000 +0200
+--- ./Modules/read_namelists.f90	2010-03-30 17:30:27.000000000 +0200
+***************
+*** 723,728 ****
+--- 723,729 ----
+         CALL mp_bcast( lelfield,      ionode_id )
+         CALL mp_bcast( nberrycyc,     ionode_id )
+         CALL mp_bcast( saverho,       ionode_id )
++        CALL mp_bcast( use_plumed,    ionode_id )
+         !
+         RETURN
+         !
+EOF_EOF
+patch -c -l -b -F 3 --suffix=.preplumed "./Modules/control_flags.f90" << \EOF_EOF
+*** ./Modules/control_flags.f90.preplumed	2009-06-19 15:40:42.000000000 +0200
+--- ./Modules/control_flags.f90	2010-03-30 17:30:27.000000000 +0200
+***************
+*** 39,45 ****
+              trane,dt_old,ampre, tranp, amprp, tdipole, t_diis, t_diis_simple,&
+              t_diis_rot, tnosee, tnosep, tnoseh, tcp, tcap, tdamp, tdampions, &
+              tconvthrs, tolp, convergence_criteria, tionstep, nstepe,         &
+!             tsteepdesc, tatomicwfc, tscreen, gamma_only, force_pairing, tchi2
+    !
+    PUBLIC :: fix_dependencies, check_flags
+    PUBLIC :: tksw, trhor, thdyn, iprsta, trhow
+--- 39,45 ----
+              trane,dt_old,ampre, tranp, amprp, tdipole, t_diis, t_diis_simple,&
+              t_diis_rot, tnosee, tnosep, tnoseh, tcp, tcap, tdamp, tdampions, &
+              tconvthrs, tolp, convergence_criteria, tionstep, nstepe,         &
+!             tsteepdesc, tatomicwfc, tscreen, gamma_only, force_pairing, tchi2, use_plumed
+    !
+    PUBLIC :: fix_dependencies, check_flags
+    PUBLIC :: tksw, trhor, thdyn, iprsta, trhow
+***************
+*** 101,106 ****
+--- 101,108 ----
+    LOGICAL :: tsteepdesc = .FALSE.
+                              !  parameters for electronic steepest desceent
+  
++   LOGICAL :: use_plumed = .FALSE.
++                             !  switch for plumed plugin
+    INTEGER :: nbeg   = 0 ! internal code for initialization ( -1, 0, 1, 2, .. )
+    INTEGER :: ndw    = 0 !
+    INTEGER :: ndr    = 0 !
+EOF_EOF
+patch -c -l -b -F 3 --suffix=.preplumed "./Modules/input_parameters.f90" << \EOF_EOF
+*** ./Modules/input_parameters.f90.preplumed	2009-06-23 10:47:26.000000000 +0200
+--- ./Modules/input_parameters.f90	2010-04-09 10:59:37.000000000 +0200
+***************
+*** 247,258 ****
+  
+          LOGICAL :: use_wannier = .FALSE. ! use or not Wannier functions
+  
+          NAMELIST / control / title, calculation, verbosity, restart_mode, &
+            nstep, iprint, isave, tstress, tprnfor, dt, ndr, ndw, outdir,   &
+            prefix, wfcdir, max_seconds, ekin_conv_thr, etot_conv_thr,      &
+            forc_conv_thr, pseudo_dir, disk_io, tefield, dipfield, lberry,  &
+            gdir, nppstr, wf_collect, printwfc, lelfield, nberrycyc, refg,  &
+!           tefield2, saverho, tabps, lkpoint_dir, use_wannier
+  
+  !
+  !=----------------------------------------------------------------------------=!
+--- 247,260 ----
+  
+          LOGICAL :: use_wannier = .FALSE. ! use or not Wannier functions
+  
++         LOGICAL :: use_plumed = .FALSE. ! use or not Plumed plugin
++ 
+          NAMELIST / control / title, calculation, verbosity, restart_mode, &
+            nstep, iprint, isave, tstress, tprnfor, dt, ndr, ndw, outdir,   &
+            prefix, wfcdir, max_seconds, ekin_conv_thr, etot_conv_thr,      &
+            forc_conv_thr, pseudo_dir, disk_io, tefield, dipfield, lberry,  &
+            gdir, nppstr, wf_collect, printwfc, lelfield, nberrycyc, refg,  &
+!           tefield2, saverho, tabps, lkpoint_dir, use_wannier, use_plumed
+  
+  !
+  !=----------------------------------------------------------------------------=!
+EOF_EOF
+patch -c -l -b -F 3 --suffix=.preplumed "./clib/Makefile" << \EOF_EOF
+*** ./clib/Makefile.preplumed	2008-07-03 16:30:52.000000000 +0200
+--- ./clib/Makefile	2010-03-31 14:14:28.000000000 +0200
+***************
+*** 1,8 ****
+--- 1,10 ----
+  # Makefile for clib
+  
+  include ../make.sys
++ include ./plumed.inc
+  
+  OBJS = \
++ $(PLUMED_OBJECTS) \
+  stack.o \
+  c_mkdir.o \
+  cptimer.o \
+***************
+*** 24,27 ****
+--- 26,30 ----
+  clean :
+  	- rm -f clib.a *.o *.mod *.i core*
+  
++ $(PLUMED_OBJECTS): metadyn.h
+  include make.depend
+EOF_EOF

@@ -1,0 +1,30 @@
+INPUT FOR VOID STATISTICS
+HISTORY
+formatted
+34000 34050 50 
+9.0
+2
+Si4+     2.1
+O2-      1.60
+no
+
+=====================
+description of above terms:
+-----------------
+input HISTORY file name
+formatted or unformatted file
+choose configuration from begin to end every interval steps
+cutoff radius for candidates
+number of species
+label and radii of the atoms
+If you choose the option 'yes' on the last row an output file with the delaunay tetrahedrons, voronoi vertices
+and bottleneck is printed in the voids.trj file
+
+output file:
+The file interstices.out contains the void size distribution:
+dr = radius of the voids
+ri = interstitial statistics 
+riw = interstitial statistics without overlaps
+rb = bottleneck distribution
+
+The file tdf.out contains the total distribution function of voronoi vertices

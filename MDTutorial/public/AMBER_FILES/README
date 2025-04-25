@@ -1,0 +1,26 @@
+Dear Dr. Smith, 
+
+I am sending to you two files which contain force field parameters as
+in the 95-96 versions of AMBER (all atom forcefields). Although
+nothing is foolproof, I am pretty confident that the numbers in these
+files are correct. I did a number of tests to verify them and used
+these parameters in a couple of my simulations.  The only difference
+from AMBER is that I did not include end residues as in AMBER (they
+have slightly different charges). I also did not make any changes
+(amb96.dat) in dna/rna units, but kept this section so that dl_poly
+utilities could work with these files. I also have a united force
+field for DPPC membranes which we used extensively in our
+simulations. More details can be found on the following web site:
+http://azazello.chem.unc.edu/alex/ff.html. For my simulations I also
+modified DL_POLY source code to incorporate the Ryckaert-Bellemans
+potential. I would be glad to provide you with the updated versions of
+DL_POLY subroutines at your request. I hope that DL_POLY community
+would benefit from having updated versions of force field parameter
+files.
+
+With best regards,
+Alexander Smondyrev.
+Department of Chemistry
+UNC - Chapel Hill
+(919)-9620537 (Office)
+http://azazello.chem.unc.edu/alex/alex.html

@@ -1,0 +1,456 @@
+<html>
+<body>
+
+<h1> Tutorial for Classical MD </h1>
+
+<h2> General Instructions </h2>
+
+
+Download DLPOLY.tar from the ftp site and un-tar it to obtain all the material needed
+for this exercise. One of the files you should find is "tutorial.html" which you can open for
+your own convenience. <br> <br>
+
+<br> <br>
+
+Now we will compile the code. To do this move to the <b> srcmod </b> directory.  
+
+<br> <br>
+
+Type: <b> make clean </b> (to delete any files from old compilations)
+
+<br> <br>
+
+Type: <b> make gfortran </b> (you should see that the different files in that directory are
+getting compiled
+
+<br><br>
+
+Once this is successfully completed you should see a DLPOLY.X executable in
+the execute directory which is one directory above the current one you are working 
+in. Simply do: <b> cd ../execute/ </b> and check to see if there is a DLPOLY.X
+executable in there.
+
+<br><br>
+
+We are now almost ready to make the atoms dance!
+
+<br> <br>
+
+After each DLPOLY MD simulation there will be a file called <b> STATIS </b> that contains A LOT
+of information on the conserved quantity, temperature, potential energy etc etc
+
+<br> <br>
+
+We will use a small function <b> pickstatis </b> to extract some information from the STATIS file
+so that we can plot it in xmgrace.
+
+<br> <br>
+
+Put the information in the pickstatis.txt file into your .bashrc file. Then do 
+<b> source .bashrc </b> . Then we run it as: <b> pickstatis 1 < STATIS > output.dat </b>
+
+<br> <br>
+
+<br>
+
+<b> Exercises </b>
+
+In the first exercise we will explore how one chooses the timestep
+in an MD simulation. <br> <br>
+
+For all the short exercises to follow, we will use an open source MD
+code called DLPOLY. In order to run DLPOLY you will need 3 files namely
+CONFIG, CONTROL and FIELD. The CONFIG file contains the atomic coordinates
+of the atoms. The CONTROL file contains the parameters needed to run
+the molecular dynamics simulation. The FIELD file contains the information
+on the forcefield 
+
+<h1> Exercise 1: Choosing the timestep in an MD simulation </h1>
+<br> <br>
+
+Choosing the timestep for your MD simulation is a critical part of setting up
+the simulation. The rule of thumb is that the timestep should be much smaller than
+the fastest frequency in your system.
+
+<br> <br>
+
+Open up the CONTROL file by using your favorite text editor. Type:
+
+<br> <br>
+
+<b> emacs CONTROL & </b>
+
+<br> <br>
+
+In the first two lines you should see: <br> <br>
+
+<b> steps     5000 </b> <br>
+<b> timestep  0.005 </b>
+
+<br><br>
+
+This tells DLPOLY that we will run an MD simulation of 5000 steps with a timestep
+of 5 femtosecond. In this exercise we will run a simulation
+of total length 25 picoseconds, this is because the default unit of time in DLPOLY
+is picoseconds. This maybe different for other codes.
+
+<br><br>
+
+Now type the following to run the DLPOLY executable: <br> <br>
+
+<b> Step 1: </b> 
+
+<b> ../dl_poly_2.20/execute/DLPOLY.X  </b> <br><br>
+
+This will run for a couple of seconds and then should generate several files such
+as HISTORY, OUTPUT, STATIS. For now we are particularly interested in the STATIS
+file. Using the function pickstatis which is located in your .bashrc file, we can
+look to see whether the timestep we have chosen is good or not. 
+
+<br> <br>
+
+In an MD simulation, it is always important to check whether the conserved 
+quantity is actually conserved. The simulation that you just run is in the
+NVT ensemble where the conserved quantity is the sum of the total potential
+energy, total kinetic energy and the energy of heat reservoir that controls
+the temperature of the system. Lets look at the conserved quantity for the
+simulation that you just ran. Type the following:
+
+<b> pickstatis 1 < STATIS > engcons.dat </b>
+
+<br> <br>
+
+Now lets look at the conserved quantity using a plotting program such as xmgrace.
+Type: <br> <br>
+
+<b> xmgrace engcons.dat & </b> 
+
+<br> <br>
+
+You should now obtain a plot that looks something like the following: <br> <br>
+
+<p>
+<IMG SRC="pics/run2engcons.jpg" WIDTH=592 HEIGHT=592> </p>
+
+<br>
+
+As you can see that there is a significant drift in the first 25 ps and that the
+drift is likely to increase even more over a much longer run. Thus the conserved
+quantity is <b> not conserved </b>. We are in trouble and need to change
+the timestep of our simulation. Lets first save the data we have generated from
+this MD simulation for future reference. Lets create a directory called Run1 and move
+the some of the data files into that directory. Do the following: <br> <br>
+
+<b> mkdir Run1 </b> <br> <br>
+
+Now do: <br> <br>
+
+<b> mv engcons.dat HISTORY STATIS OUTPUT Run1 <br> <br> </b>
+
+Then we want to cleanup the directory with other files present that aren't needed
+at this point. In your bin directory there should be a script that does this. Type
+the following: <br> <br>
+
+<b> ~/bin/cleanup.sh </b> 
+
+<br> <br>
+
+Open up the CONTROL file again and change: <br> <br>
+
+dt = 0.005 <br> <br>
+
+to the following:
+
+dr = 0.001 <br> <br>
+
+Now go back to <b> Step 1: </b> above repeating the exercise.
+
+<br> <br>
+
+You should now obtain a plot that looks something like the following: <br> <br>
+
+<IMG SRC="pics/run1engcons.jpg" WIDTH=592 HEIGHT=592>
+
+<br> <br>
+
+
+<h1> Exercise 2: Thermostating the system to a desired temperature  </h1>
+<br> <br>
+
+In this exercise we will try to learn about how we can use thermostats
+to control the temperature in a simulation. As you have learnt already, one
+can do MD simulations in three ensembles: NVE, NVT and NPT. In this exercise
+we will focus on the NVT ensemble (N = number of atoms, V = volume, and T =
+temperature). The thermostat that we will use is the Nose-Hoover thermostat
+which we have briefly overviewed in the lecture. <br> <br>
+
+Open the CONTROL file again and look for the following two clauses: 
+
+<br><br>
+
+<b> temperature 100 </b> <br>
+<b> ensemble nvt hoover 0.2 </b> <br> <br>
+
+The first line tells DLPOLY that we want to do a simulation at 100K. <br><br>
+
+This second line tells the DLPOLY code that we are going to run a simulation in the
+NVT ensemble using the Nose-Hoover thermostat with a time constant of 0.2ps. This
+time constant dictates how strongly the thermostat is coupled to the the system.
+This provides an indirect way to control the temperature of the system. Lets
+take a look. <br> <br>
+
+Lets run the DLPOLY code again as we did before using the following: <br> <br>
+
+<b> ../dl_poly_2.20/execute/DLPOLY.X  </b> <br><br>
+
+Once this is finished it will generate the STATIS file as before. Now do the following
+to extract the temperature from the runs: <br> <br>
+
+<b> pickstatis 2 < STATIS > engtemp.dat </b> <br> <br>
+
+Now lets plot engtemp.dat using X-Mgrace. As you can see the temperature in
+the system fluctuates at around 100K. You should have something that looks
+like the following: <br> <br>
+
+<IMG SRC="pics/tempnose1.jpg" WIDTH=592 HEIGHT=592>
+
+<br><br>
+
+Lets now repeat the exercise using the following setting in the CONTROL file: <br> <br>
+
+<b> ensemble nvt hoover 5.0 </b> <br> <br>
+
+Remember to save the old temperature data and also run cleanup.sh. Now lets rerun the
+calculation. You should obtain something like the following: <br> <br>
+
+<IMG SRC="pics/nosetemp2.jpg" WIDTH=592 HEIGHT=592>
+
+<br><br>
+
+We see that in this simulation the temperature is not fluctuating around 100K as expected.
+This is because the time constant of 5ps is too large. <br> <br>
+
+<h1> Exercise 3: Equilibrating the System  </h1>
+
+In this exercise we will explore how to equilibrate the system being studied with
+the MD simulation. It is often the case that when starts an MD simulation the
+initial starting configuration is far from equilibrium. In all the previous simulations
+the system was close to equilibrium. We will now demonstrate the equilibration of
+the system we have been working on, namely the water hexamer. We will first generate
+the conditions for the hexamer to be out of equilibrium. This will also expose
+you to the use of VMD and periodic boundary conditions (PBC). <br> <br>
+
+Open up the CONTROL file again and set the temperature to 1000K: <br> <br>
+
+<b> temperature 1000 </b> <br>
+
+Run the DLPOLY executable again. This will generate a HISTORY file that we would
+like to view later using some visualizing tool such as VMD. Save the HISTORY
+file by copying it into another directory. As we will see later, heating the
+system up to 1000K evaporates the water cluster as We now want to use the last configuration
+generated from the simulation we just ran for the next run. Do the following: <br> <br>
+
+<b> mv REVCON CONFIG </b> <br> <br>
+
+Lets do a cleanup now before we run a new calculation. Now go back to the CONTROL file again 
+, set the temperature to 100K, and increase the number of steps to 15000: <br> <br>
+
+<b> steps     5000 </b>
+<b> temperature 100 </b>
+<br> <br>
+
+An important quantity to check to see if the system has equilibrated is the potential
+energy of the system. This quantity should fluctuate around some average value
+if the system is equilibrated. Lets examine the potential energy of the system for
+the simulation we have just run: <br> <br>
+
+<b> pickstatis 3 < STATIS > engcfg.dat </b> <br> <br>
+
+Now lets plot engcfg using X-MGrace. You should obtain something the following: <br> <br>
+
+<IMG SRC="pics/equil.jpg" WIDTH=692 HEIGHT=692>
+
+<br> <br>
+
+As you can see the potential energy of the system decreases over the course of
+the first 10ps. This is an indication that it is equilibrating over this period
+of time. This is because the hexamer starts of in an evaporated state of water
+and then at 100K the system equilibrates to a state that is favorable at that 
+temperature. Shown below is a snapshot of the configuration with periodic images,
+at t=0 in the left panel and at t=15ps in the right panel. <br> <br>
+
+<IMG SRC="pics/hexamer.jpg" WIDTH=692 HEIGHT=692>
+
+<br> <br>
+
+
+
+<h1> Exercise 4: Computing the radial distribution function (g(r)) from the simulation  </h1>
+
+In this exercise we will examine the radial distribution function of the water cluster
+at two different temperatures. Now that you are all familiar with how to run the DLPOLY code
+and changing the input parameters in the CONTROL file, I will just refer to previous
+exercises for details. Lets first run a simulation of 10000 steps of the water
+cluster at 100K. Once the calculation is done you will see that DLPOLY generates
+a file called RDFDAT that includes the g(r) for all the atom pairs in the system:
+O-O, O-H and H-H. We will focus on the O-O g(r). Open the RDFDAT file and look
+for the O-O pair distribution function. Copy the g(r) data for the O-O pair
+into a separate data file: 100oogr.dat. Now lets repeat the exercise for
+a simulation at 200K. Do the same thing but this time store the g(r) data in another file
+called 200oogr.dat. Now lets plot the two g(r)'s at different temperatures on the same
+figure. Do you see any differences? When you overlay the g(r)'s obtained at the
+lower and higher temperatures you should obtain something like below:
+
+<br> <br>
+
+<IMG SRC="pics/watergr.jpg" WIDTH=692 HEIGHT=692>
+
+<br> <br>
+
+Its worth opening up the trajectories with VMD as well and visualizing what is happening
+to the atoms. Try and rationalize what you see in the movies with the information
+that you obtain from the g(r). <br> <br>
+
+<h2> Convergence of properties from MD simulation </h2>
+
+An important question that comes up in MD simulation is whether the simulation is long
+enough and whether we have enough statistics of the property you are interested in.
+One easy check is to take your trajectory and divide it into two blocks: lets
+say the first 5ps and the second 5ps. One can then compute the properties for the 
+two blocks and compare. For our purposes here since the calculations are cheap,
+lets compare the g(r) at 200K for a simulation of length 5ps with one of
+length 10ps. Remember to save the RDFDAT file for the two runs separately
+so that you can compare the g(r)'s.
+
+<br><br>
+
+The following exercises are for students who may have more experience with MD
+simulations and who may want to skip the first three exercises. Also, this maybe
+good homework for all the students if we don't have enough time to cover it
+during the tutorial.
+
+<h1> Exercise 5: Choosing Ewald Parameters  </h1>
+
+As you learnt before the coulomb interaction between two charges is long range
+and hence cannot be treated using a cutoff like we do for the short range van der Waals.
+The Colomb sum is calculated using the Ewald Sum which divides the colomb sum into
+a short and long range interaction. The short range is treated in real space
+while the long range is treated with reciprocal space. In DLPOLY one can
+determine the parameters for the Ewald sum manually or set some parameter that
+will determine it automatically. We will do this manually as an exercise. There
+are three parameters that determine the accuracy of the Ewald sum: the alpha
+parameter which determines the Ewald convergence, r_cut which is the real space
+cutoff and k_max1, k_max2 and k_max3 which determine the range of the reciprocal
+space term. Lets first comment out the flag that automatically determines the
+parameters: <br> <br>
+
+<b> #ewald precision 1d-6 </b> <br> <br>
+
+Lets instead a new clause that will allow us to manually determine the correct
+ewald parameters: <br> <br>
+
+<b> ewald sum 0.6 10 10 10 </b> <br> <br>
+
+0.6 is the alpha parameter and the three integers (10) define the range of
+the reciprocal space term. For this exercise we will just need to do single point
+energy calculations: <br> <br>
+
+<br><br>
+<b> steps 1 </b> 
+
+<br> <br>
+We will now examine the Coulomb energy with the parameters above and then change
+the alpha parameter to 0.48 and 0.72. If the parameters are well set the Coulomb energy
+should be constant [ there should be a plateau ] across the different alpha values. For
+this exercise we can look at the OUTPUT file. Look for the value under eng_cou and you
+should see something like -214.31. Lets change alpha to 0.48 and repeat the
+single point calculation: we get -209.07 and when we change alpha to 0.72 we get -243.41.
+This shows that our Ewald parameters are poorly chosen. Lets now change the parameters to
+the following: <br> <br>
+
+<b> ewald sum 0.3 10 10 10 </b> <br> <br>
+
+We now repeat the exercise with alpha 0.3, 0.24 and 0.36. For alpha = 0.3 we get -208.84,
+alpha = 0.24 we get -208.84 and similarly for alpha = 0.36 we get -208.84. This result
+tells us that our choice of alpha and k_max1, k_max2 and k_max3 are converged. <br> <br>
+
+Lets do one last exercise where we reduce the reciprocal space integers from 10 to
+2: <br> <br>
+
+<b> ewald sum 0.3 2 2 2  </b> <br> <br>
+
+The Coulomb energies with alpha = 0.3, 0.24 and 0.36 are: -213.29, -210.60 and finally
+-217.88 kJ/mol. This demonstrates again that we need to search for a k_max1, k_max2 and
+a k_max3 that lies between 2 and 10. 
+
+<h1> Exercise 6: Computing the dipole moment from classical MD </h1>
+
+In this exercise we will work on computing the dipole moment of a single water
+molecule generated from a classical MM force field and see if the 
+fluctuations associated with it make sense to you. In this exercise you will
+first have to understand how to compute the dipole moment of the a water molecule.
+Once you know that, you can sketch out an algorithm on paper and then begin
+to implement that in a fortran code. This might be more suited for people with
+experience in programming.
+
+<br> <br>
+
+In the Exc6 folder you will find the CONFIG file for a single water.
+Lets run a simulation at 100K for 10000 steps. This will generate a HISTORY file.
+Lets convert the HISTORY file into an xyz file. This can be done using the hisxyz
+executable: <br> <br>
+
+<br> <br>
+
+<b> ./hisxyz </b> <br>
+
+<br> <br>
+
+Follow the instructions inputing HISTORY for the file name, 100 for the
+number of configurations and 3 for the number of atoms. This will generate a file
+called HIS.xyz. The fortran code that you write should read in the HIS.xyz and
+then use that to calculate the dipole moment of the water molecule.
+
+<br> <br>
+
+<h1> Exercise 7: Annealing crystalline silica with Buckingham potential </h1>
+
+<br> <br>
+
+In this exercise we will explore the conversion of crystalline silica into
+something mor amorphous and at the same time try to develop an understanding of
+the Buckingham potential which is another type of short-range interaction that is
+used instead of the Lennard Jones potential - can you rationalize why the Buckingham
+potential is perhaps better than the Lennard Jones potential we discussed in class?
+
+<br> <br>
+
+In Exc7 there is the CONFIG, CONTROL and FIELD file as usual for simulating silica
+with the Buckingham potential. The idea is to perform 3 simulations in steps. This
+means that after each step, you will use the configuration generated at the end of
+that run to continue.
+
+<br> <br>
+
+-  A simulation at 500 K for 100 ps.
+
+<br> <br>
+
+-  A simulation at 1000 K for 50 ps.
+
+<br> <br>
+
+-  A simulation at 2000 K for 20 ps
+
+At each stage, look at the quantities like the radial distribution function (Si-O,
+O-O etc) and see if you can interpret them and make sense of the results. Also
+at each stage look at the quantities like temperature and potential energy. 
+
+<br> <br>
+
+After the 2000K simulation, use the last configuration and start a simulation
+at 8000K. Try and visualize this trajectory as well as the potential energy
+and temperature. 
+
+</body>
+</html>

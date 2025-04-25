@@ -1,0 +1,25 @@
+#
+# put all the dirs you need for testing
+#
+align
+alphabeta
+angle
+coord
+dihcor
+dipole
+distance
+helix
+energy
+mindist
+rgyr
+rmsdtor
+torsion
+steer
+well_temp
+path/s.cmap
+path/s.drmsd
+biasxmd
+ptmetad
+pd
+dd
+grid

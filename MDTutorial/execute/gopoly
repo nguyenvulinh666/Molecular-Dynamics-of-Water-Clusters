@@ -1,0 +1,33 @@
+#!/bin/bash
+#
+# The parallel environment to run in and the number of nodes
+#$ -pe mpich 2
+#
+# Run from the directory the job was submitted from
+#$ -cwd
+#
+# Export all environment variables from submission shell
+# to the job
+#$ -V
+#
+# Merge stderr and stdout streams
+#$ -j yes
+#
+# What to name the output
+#$ -o GOPOLY.$JOB_ID
+
+# How many processors per node
+PPN=4
+
+# The location of the binary to run
+binary=/home/user/dl_poly_2.20/execute/DLPOLY.X
+
+# Create the machinefile
+sed s/$/:4/ $HOME/.mpich/mpich_hosts.$JOB_ID > \
+$HOME/.mpich/ndfile.$JOB_ID
+
+# Do it!
+mpirun \
+-np $((NSLOTS*PPN)) \
+-machinefile $HOME/.mpich/ndfile.$JOB_ID \
+$binary

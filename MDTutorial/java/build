@@ -1,0 +1,2 @@
+javac *.java
+jar -cfm GUI.jar manifesto *.class

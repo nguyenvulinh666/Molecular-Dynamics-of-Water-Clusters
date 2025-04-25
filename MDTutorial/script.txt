@@ -1,0 +1,1 @@
+awk -v col=$1 '{if (NR>2) if (NF==3) { time=$2; base=0; } else { if (col>base && col<=base+5) print time, $(col-base); base+=5 } }'

@@ -1,0 +1,6 @@
+To compile the plug-in:
+
+1. set the PLUMED variable to the directory containing plumed common files
+E.g.: PLUMED=/home/user/PLUMED/common_files
+2. link metadyn.h in the ACEMD directory.
+

@@ -1,0 +1,23 @@
+INSTALLATION:
+
+PLUMED IS NOT A STANDALONE PROGRAM!
+In order to be functional, the user must obtain first one or more of the following 
+molecular dynamics codes:
+
+NAMD 2.6/2.7b1/2.7b2    (http://www.ks.uiuc.edu/Research/namd/)         -free
+
+GROMACS 3.3/4.0         (http://www.gromacs.org/)                       -free
+
+AMBER 9/10              (http://ambermd.org/)
+
+DL_POLY 2.16/2.19/2.20  (http://www.cse.scitech.ac.uk/ccg/software/DL_POLY/)
+
+Quantum-ESPRESSO 4.1.2  (http://www.quantum-espresso.org/)          -free
+
+ACEMD 1.1		(http://multiscalelab.org/acemd)
+
+LAMMPS                  (http://lammps.sandia.gov/index.html)       -free
+
+The directory "patches/" contain specific bash scripts to modify each MD engines in order
+to incorporate free energy functionalities. For the correct procedure to use in each case, 
+please look at the README file contained in that directory or at the complete manual.
