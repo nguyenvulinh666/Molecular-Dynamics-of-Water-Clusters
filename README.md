@@ -13,4 +13,4 @@ the structural and dielectric properties can be probed experimentally will be gi
 - Most of the data wascollected inside the folder HOME/MDTutorial/Exercises/$Exc1  <br>
 - We use the following bash file to collect the data for analysis: read_OW_data.sh, read_HW_data.sh, compile_different_deltaT.sh and compile_data.sh <br>
 - We plot everything in jupyter file RDA_render_data_file_[temp]K, with temp is the particular temperature.
-- Read Report/Numerical_Method_2___NGUYEN_VU_LINH___MasterMarcello_and_MasterAli.pdf for more. detail 
+- Read Report/Numerical_Method_2___NGUYEN_VU_LINH___MasterMarcello_and_MasterAli.pdf for more detail.
